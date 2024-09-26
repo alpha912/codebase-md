@@ -2,7 +2,7 @@
   "name": "codebase-md",
   "displayName": "CodebaseMD",
   "description": "Export your entire codebase or selected files as a Markdown file.",
-  "version": "1.0.1",  // Increment the version number
+  "version": "1.0.1", 
   "publisher": "alpha912",
   "engines": {
     "vscode": "^1.70.0"
@@ -20,7 +20,7 @@
     "url": "https://github.com/alpha912/codebase-md.git"
   },
   "license": "MIT", 
-  "icon": "assets/logo.webp",  // Add this line to reference your logo
+  "icon": "assets/logo.webp",
   "contributes": {
     "commands": [
       {
