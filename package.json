@@ -15,6 +15,11 @@
     "onCommand:codebaseMD.exportSelected"
   ],
   "main": "./out/extension.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alpha912/codebase-md.git"
+  },
+  "license": "MIT", 
   "contributes": {
     "commands": [
       {
