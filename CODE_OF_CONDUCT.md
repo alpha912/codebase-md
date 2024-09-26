@@ -73,38 +73,3 @@ Project maintainers will follow these Community Impact Guidelines in determining
 This Code of Conduct is adapted from the [Contributor Covenant](https://www.contributor-covenant.org), version 2.1, available at https://www.contributor-covenant.org/version/2/1/code_of_conduct.html.
 
 For answers to common questions about this code of conduct, see https://www.contributor-covenant.org/faq.
-```
-
----
-
-### **How to Add These**
-
-#### **1. Add `CONTRIBUTING.md` to Your Repository:**
-
-1. Create a new file called `CONTRIBUTING.md` in the root of your project.
-2. Copy the contributing guidelines above and save the file.
-3. Commit and push it to GitHub:
-
-   ```bash
-   git add CONTRIBUTING.md
-   git commit -m "docs: add contributing guidelines"
-   git push origin master
-   ```
-
-#### **2. Add `CODE_OF_CONDUCT.md` to Your Repository:**
-
-1. Create a new file called `CODE_OF_CONDUCT.md` in the root of your project.
-2. Copy the code of conduct content above and save the file.
-3. Commit and push it to GitHub:
-
-   ```bash
-   git add CODE_OF_CONDUCT.md
-   git commit -m "docs: add code of conduct"
-   git push origin master
-   ```
-
----
-
-### **Conclusion**
-
-Now your repository will include a clear contributing guide and code of conduct, which will encourage collaboration and ensure a welcoming and inclusive community for contributors. Let me know if you need any further changes or clarifications!
