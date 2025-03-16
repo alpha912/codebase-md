@@ -2,7 +2,7 @@
   "name": "codebase-md",
   "displayName": "CodebaseMD",
   "description": "Export your entire codebase or selected files as a Markdown file.",
-  "version": "1.0.1", 
+  "version": "1.0.2", 
   "publisher": "alpha912",
   "engines": {
     "vscode": "^1.70.0"
@@ -36,7 +36,7 @@
       "explorer/context": [
         {
           "command": "codebaseMD.exportSelected",
-          "when": "explorerResourceIsFo­lder || resourceFilename",
+          "when": "explorerResourceIsFolder || resourceFilename",
           "group": "navigation"
         }
       ]

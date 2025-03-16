@@ -1,22 +1,36 @@
 # Usage
 
-CodebaseMD provides two main functionalities: exporting your entire codebase and exporting selected files or folders.
+CodebaseMD provides two main commands to export your codebase to a Markdown file:
+
+1. **Export All**: Export the entire codebase to a Markdown file
+2. **Export Selected**: Export only the selected files or folders to a Markdown file
 
 ## Exporting the Entire Codebase
 
-1. Open your project in Visual Studio Code
-2. Open the Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P`)
-3. Search for and select "Export Codebase as Markdown"
+1. Open the Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P` on macOS)
+2. Type "CodebaseMD: Export All" and select it
+3. Choose a location to save the exported Markdown file
+4. The extension will process all files in your workspace, excluding files specified in `.gitignore` or default ignore patterns
+5. Once complete, you will see a notification that the file was saved successfully
+
+## Exporting Selected Files
+
+1. Select one or more files or folders in the Explorer view
+2. Right-click and select "CodebaseMD: Export Selected" from the context menu
+3. Alternatively, open the Command Palette and type "CodebaseMD: Export Selected" (you need to have selected files first)
 4. Choose a location to save the exported Markdown file
-5. The extension will generate a Markdown file containing your project's structure and file contents
+5. The extension will process only the selected files, still respecting ignore patterns
+6. Once complete, you will see a notification that the file was saved successfully
 
-## Exporting Selected Files or Folders
+## Excluding Files from Content Export
 
-1. In the Explorer view, select one or more files or folders you want to export
-2. Right-click on the selection
-3. Choose "Export Selected as Markdown" from the context menu
-4. Select a location to save the exported Markdown file
-5. The extension will generate a Markdown file containing the structure and contents of your selected files and folders
+You can exclude files from having their contents exported while still keeping them in the folder structure by using a `.codebaseignore` file:
+
+1. Create a `.codebaseignore` file in the root of your workspace
+2. Add patterns using the same syntax as `.gitignore`
+3. When exporting, files matching these patterns will be included in the folder structure but will show a message indicating their contents were excluded
+
+This is useful for files that you want to acknowledge exist in your project structure but don't need to include their full contents in the export.
 
 ## Understanding the Output
 

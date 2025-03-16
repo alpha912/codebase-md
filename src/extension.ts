@@ -43,6 +43,7 @@ async function exportSelectedFiles(uris: vscode.Uri[]) {
 
 async function getAllFiles(dir: string): Promise<string[]> {
   const ig = createIgnoreInstance(dir);
+  const codebaseIgnoreFiles = getCodebaseIgnoreFiles(dir);
   const files: string[] = [];
 
   async function traverse(currentDir: string) {
@@ -75,6 +76,7 @@ async function getFilesFromUris(uris: vscode.Uri[]): Promise<string[]> {
   const files: string[] = [];
   const rootPath = vscode.workspace.workspaceFolders![0].uri.fsPath;
   const ig = createIgnoreInstance(rootPath);
+  const codebaseIgnoreFiles = getCodebaseIgnoreFiles(rootPath);
 
   async function processUri(currentUri: vscode.Uri) {
     const stat = await vscode.workspace.fs.stat(currentUri);
@@ -143,6 +145,16 @@ function createIgnoreInstance(rootDir: string): Ignore {
   return ig;
 }
 
+function getCodebaseIgnoreFiles(rootDir: string): Ignore {
+  const ig = ignore();
+  const codebaseIgnorePath = path.join(rootDir, '.codebaseignore');
+  if (fs.existsSync(codebaseIgnorePath)) {
+    const codebaseIgnoreContent = fs.readFileSync(codebaseIgnorePath, 'utf8');
+    ig.add(codebaseIgnoreContent);
+  }
+  return ig;
+}
+
 function isLargeFile(fileName: string): boolean {
   const largeFiles = ['package-lock.json', 'yarn.lock'];
   return largeFiles.includes(fileName);
@@ -159,8 +171,14 @@ function isSupportedFile(fileName: string): boolean {
   return supportedExtensions.includes(ext);
 }
 
+function shouldIncludeFileContents(filePath: string, rootPath: string, codebaseIgnoreFiles: Ignore): boolean {
+  const relativePath = path.relative(rootPath, filePath);
+  return !codebaseIgnoreFiles.ignores(relativePath) && isSupportedFile(path.basename(filePath));
+}
+
 async function generateMarkdown(files: string[], rootPath: string): Promise<string> {
   let markdown = `# Project Export\n\n`;
+  const codebaseIgnoreFiles = getCodebaseIgnoreFiles(rootPath);
 
   // Project statistics
   markdown += `## Project Statistics\n\n`;
@@ -178,13 +196,15 @@ async function generateMarkdown(files: string[], rootPath: string): Promise<stri
     const fileName = path.basename(file);
     markdown += `\n### ${relativePath}\n\n`;
 
-    if (isSupportedFile(fileName)) {
+    if (shouldIncludeFileContents(file, rootPath, codebaseIgnoreFiles)) {
       const code = fs.readFileSync(file, 'utf8');
       const ext = path.extname(file).substring(1);
       markdown += '```' + ext + '\n';
       markdown += code;
       markdown += '\n```\n';
-    } else {
+    } else if (codebaseIgnoreFiles.ignores(relativePath)) {
+      markdown += `*(File content excluded by .codebaseignore)*\n`;
+    } else if (!isSupportedFile(fileName)) {
       markdown += `*(Unsupported file type)*\n`;
     }
   }

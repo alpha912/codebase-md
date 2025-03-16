@@ -2,6 +2,31 @@
 
 Currently, CodebaseMD does not have user-configurable settings through the Visual Studio Code settings interface. However, you can customize some behaviors by modifying the source code directly.
 
+## Using .codebaseignore File
+
+CodebaseMD supports a special `.codebaseignore` file that works similarly to `.gitignore` but specifically for controlling what file contents are exported:
+
+1. Create a `.codebaseignore` file in the root of your workspace
+2. Add file patterns following the same syntax as `.gitignore`
+3. Files matching these patterns will still be listed in the folder structure but their contents will be excluded from the export
+
+Example `.codebaseignore` file:
+```
+# Exclude all test files
+*.test.js
+*.spec.js
+__tests__/
+
+# Exclude configuration files
+.eslintrc
+.prettierrc
+tsconfig.json
+
+# Exclude specific files or directories
+src/legacy/
+temp.js
+```
+
 ## Customizing Ignored Files and Directories
 
 To change which files and directories are ignored during export:
