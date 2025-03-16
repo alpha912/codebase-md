@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.1] - 2025-03-24
+
+### Fixed
+- Improved method detection in Micro Codebase Export to eliminate false positives
+- Fixed class hierarchy detection to properly show inheritance relationships
+- Enhanced property detection to avoid capturing method calls as properties
+- Added better flow pattern detection for methods (error handling, async, conditionals)
+- Improved type information display for method parameters and return types
+- Added proper static member identification
+
+## [2.0.0] - 2025-03-22
+
+### Added
+- Micro Codebase Export feature - Condenses code files into a highly informative minimal representation
+- New commands: "Export Micro Codebase" and "Export Selected as Micro Codebase"
+- Specialized notation system for representing code structures in condensed form
+- Automatic detection of design patterns and critical code paths
+
 ## [1.0.2] - 2025-03-16
 
 ### Added

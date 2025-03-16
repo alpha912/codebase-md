@@ -2,7 +2,7 @@
   "name": "codebase-md",
   "displayName": "CodebaseMD",
   "description": "Export your entire codebase or selected files as a Markdown file.",
-  "version": "1.0.2", 
+  "version": "2.0.1", 
   "publisher": "alpha912",
   "engines": {
     "vscode": "^1.70.0"
@@ -12,7 +12,9 @@
   ],
   "activationEvents": [
     "onCommand:codebaseMD.exportAll",
-    "onCommand:codebaseMD.exportSelected"
+    "onCommand:codebaseMD.exportSelected",
+    "onCommand:codebaseMD.exportMicro",
+    "onCommand:codebaseMD.exportMicroSelected"
   ],
   "main": "./out/extension.js",
   "repository": {
@@ -30,12 +32,25 @@
       {
         "command": "codebaseMD.exportSelected",
         "title": "Export Selected as Markdown"
+      },
+      {
+        "command": "codebaseMD.exportMicro",
+        "title": "Export Micro Codebase"
+      },
+      {
+        "command": "codebaseMD.exportMicroSelected",
+        "title": "Export Selected as Micro Codebase"
       }
     ],
     "menus": {
       "explorer/context": [
         {
           "command": "codebaseMD.exportSelected",
+          "when": "explorerResourceIsFolder || resourceFilename",
+          "group": "navigation"
+        },
+        {
+          "command": "codebaseMD.exportMicroSelected",
           "when": "explorerResourceIsFolder || resourceFilename",
           "group": "navigation"
         }
