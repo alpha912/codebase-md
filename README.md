@@ -7,11 +7,22 @@
 
 ## What's New in Version 2.0.2
 
+### Features & Improvements
 - **Enhanced Micro Export Format**: Improved code structure analysis with detection of class properties, methods, and function patterns
 - **Automatic Flow Detection**: Identify code flow patterns (async/await, try/catch, conditionals) 
 - **Improved Component Representation**: Detailed component visualization with visibility indicators and type annotations
-- **Comprehensive Test Suite**: Added extensive test framework to ensure reliability
-- Check the full [release notes](releases/RELEASE-NOTES-2.0.2.md) for more details
+- **Comprehensive Test Suite**: Added extensive test framework with Mocha to ensure reliability
+- **Improved File Handling**: Better support for different file types and programming languages
+- **Enhanced Markdown Generation**: Better clarity and organization in exported markdown documents
+
+### Bug Fixes
+- Fixed issues with file type detection and language mapping
+- Resolved edge cases in folder structure generation
+- Enhanced error handling throughout the codebase
+- Improved extraction of file metadata
+- Fixed pattern detection for different programming paradigms
+
+Check the full [release notes](releases/RELEASE-NOTES-2.0.2.md) for more details or view our detailed [documentation](docs/micro-export-format.md) on the Micro Export format.
 
 ## Features
 
