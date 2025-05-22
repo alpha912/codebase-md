@@ -5,12 +5,21 @@
 
 **CodebaseMD** is a Visual Studio Code extension that allows you to export your entire codebase or selected files as a Markdown file, making it easier to share and document your projects.
 
+## What's New in Version 2.0.2
+
+- **Enhanced Micro Export Format**: Improved code structure analysis with detection of class properties, methods, and function patterns
+- **Automatic Flow Detection**: Identify code flow patterns (async/await, try/catch, conditionals) 
+- **Improved Component Representation**: Detailed component visualization with visibility indicators and type annotations
+- **Comprehensive Test Suite**: Added extensive test framework to ensure reliability
+- Check the full [release notes](releases/RELEASE-NOTES-2.0.2.md) for more details
+
 ## Features
 
 - **1-Click Export Entire Codebase as Markdown**: Export your entire project into a single markdown file with the folder structure and code files included.
 - **Exclude Unnecessary Files Automatically**: Automatically excludes files and folders like those in `.gitignore`, `node_modules`, `build`, `out`, and large files such as `package-lock.json`.
 - **Export Selected Files**: Right-click on selected files or folders and export only those to Markdown.
 - **Markdown Compatible Output**: Only actively coded files with supported extensions (e.g., `.js`, `.ts`, `.py`, `.html`, etc.) are included with their contents, while unsupported files are listed with their names and paths.
+- **Micro Export Format** (New in v2.0): Generate condensed representations of your code with intelligent structure analysis, code flow detection, and design pattern recognition. [Learn more](docs/micro-export-format.md).
 
 ## Installation
 
@@ -37,6 +46,12 @@ You can install **CodebaseMD** directly from the [Visual Studio Marketplace](htt
 
 - In the **Explorer** view, select multiple files or folders.
 - Right-click and choose **Export Selected as Markdown**.
+
+### 3. Use the Micro Export Format
+
+- Open the **Command Palette** (`Ctrl+Shift+P` or `Cmd+Shift+P`).
+- Search for and run the command **Export Micro Codebase**.
+- Alternatively, right-click on files or folders and choose **Export Selected as Micro Codebase**.
 
 ### Example of Exported Markdown
 

@@ -2,7 +2,7 @@
   "name": "codebase-md",
   "displayName": "CodebaseMD",
   "description": "Export your entire codebase or selected files as a Markdown file.",
-  "version": "2.0.1", 
+  "version": "2.0.2",
   "publisher": "alpha912",
   "engines": {
     "vscode": "^1.70.0"
@@ -21,7 +21,7 @@
     "type": "git",
     "url": "https://github.com/alpha912/codebase-md.git"
   },
-  "license": "MIT", 
+  "license": "MIT",
   "icon": "assets/logo.webp",
   "contributes": {
     "commands": [
@@ -56,17 +56,23 @@
         }
       ]
     }
-  },
-  "scripts": {
+  },  "scripts": {
     "vscode:prepublish": "tsc -p ./",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
+    "test-compile": "tsc -p ./ && tsc -p ./src/test/",
+    "pretest": "npm run test-compile",
+    "test": "node ./out/test/runTest.js",
     "package": "vsce package",
     "publish": "vsce publish"
   },
   "devDependencies": {
+    "@types/mocha": "^10.0.10",
     "@types/node": "^16.18.11",
     "@types/vscode": "^1.70.0",
+    "@vscode/test-electron": "^2.5.2",
+    "glob": "^11.0.2",
+    "mocha": "^11.4.0",
     "typescript": "^4.8.4",
     "vsce": "^2.7.0"
   },

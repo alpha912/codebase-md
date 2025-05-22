@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.2] - 2025-05-22
+
+### Added
+- Comprehensive test suite with Mocha for ensuring code quality
+- Enhanced Micro Export format with improved code structure analysis
+- Automatic detection of code flow patterns (async/await, try/catch, conditionals)
+- Better component representation with visibility indicators
+- Detailed documentation for the Micro Export format
+
+### Fixed
+- Issues with file type detection and language mapping
+- Various edge cases in folder structure generation
+- Pattern detection for different programming paradigms
+- Extraction of file metadata
+
+### Changed
+- Improved TypeScript configuration
+- Enhanced code organization and documentation
+
 ## [2.0.1] - 2025-03-24
 
 ### Fixed

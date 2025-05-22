@@ -202,8 +202,26 @@ function isSupportedFile(fileName: string): boolean {
     '.yaml', '.yml', '.ini', '.bat', '.sql', '.rs', '.swift', '.kt', '.dart',
     '.lua', '.r', '.pl', '.hs', '.erl', '.ex', '.el', '.jl', '.scala'
   ];
+  
+  // Support for specific filenames without extensions
+  const supportedFilesWithoutExtension = [
+    'Dockerfile', 'Makefile', 'Jenkinsfile', 'docker-compose', '.gitignore', '.dockerignore',
+    '.env', '.babelrc', '.eslintrc', '.prettierrc', 'Vagrantfile', 'Procfile'
+  ];
+  
   const ext = path.extname(fileName).toLowerCase();
-  return supportedExtensions.includes(ext);
+  
+  // Check if the file has a supported extension
+  if (supportedExtensions.includes(ext)) {
+    return true;
+  }
+  
+  // If file has no extension, check if the exact filename is supported
+  if (ext === '') {
+    return supportedFilesWithoutExtension.includes(fileName);
+  }
+  
+  return false;
 }
 
 function shouldIncludeFileContents(filePath: string, rootPath: string, codebaseIgnoreFiles: Ignore): boolean {
@@ -233,8 +251,14 @@ async function generateMarkdown(files: string[], rootPath: string): Promise<stri
 
     if (shouldIncludeFileContents(file, rootPath, codebaseIgnoreFiles)) {
       const code = fs.readFileSync(file, 'utf8');
+      // Determine language identifier for code block
       const ext = path.extname(file).substring(1);
-      markdown += '```' + ext + '\n';
+      let lang = ext;
+      if (!ext) {
+        // For files without extensions, use getLanguageForSpecialFile
+        lang = getLanguageForSpecialFile(fileName);
+      }
+      markdown += '```' + lang + '\n';
       markdown += code;
       markdown += '\n```\n';
     } else if (codebaseIgnoreFiles.ignores(relativePath)) {
@@ -317,8 +341,14 @@ async function generateMicroMarkdown(files: string[], rootPath: string): Promise
     if (shouldIncludeFileContents(file, rootPath, codebaseIgnoreFiles)) {
       const code = fs.readFileSync(file, 'utf8');
       const condensedCode = condenseMicroCode(code, fileName, relativePath);
+      // Determine language identifier for code block
       const ext = path.extname(file).substring(1);
-      markdown += '```' + ext + '\n';
+      let lang = ext;
+      if (!ext) {
+        // For files without extensions, use getLanguageForSpecialFile
+        lang = getLanguageForSpecialFile(fileName);
+      }
+      markdown += '```' + lang + '\n';
       markdown += condensedCode;
       markdown += '\n```\n';
     } else if (codebaseIgnoreFiles.ignores(relativePath)) {
@@ -334,7 +364,7 @@ async function generateMicroMarkdown(files: string[], rootPath: string): Promise
 function condenseMicroCode(code: string, fileName: string, filePath: string): string {
   // Extract language based on file extension
   const ext = path.extname(fileName).toLowerCase();
-  const language = getLanguageFromExtension(ext);
+  const language = ext ? getLanguageFromExtension(ext) : getLanguageForSpecialFile(fileName);
   
   // 1. Extract metadata
   const fileMetadata = extractFileMetadata(code, language, filePath);
@@ -417,6 +447,26 @@ function getLanguageFromExtension(ext: string): string {
   };
   
   return langMap[ext] || 'unknown';
+}
+
+// Add a helper function to get language for files without extensions
+function getLanguageForSpecialFile(fileName: string): string {
+  const specialFileMap: {[key: string]: string} = {
+    'Dockerfile': 'dockerfile',
+    'docker-compose': 'yaml',
+    'Makefile': 'makefile',
+    'Jenkinsfile': 'groovy',
+    '.gitignore': 'gitignore',
+    '.dockerignore': 'gitignore',
+    '.env': 'dotenv',
+    '.babelrc': 'json',
+    '.eslintrc': 'json',
+    '.prettierrc': 'json',
+    'Vagrantfile': 'ruby',
+    'Procfile': 'procfile'
+  };
+  
+  return specialFileMap[fileName] || 'plaintext';
 }
 
 interface FileMetadata {
