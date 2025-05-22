@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2024 Alphin Tom
+Copyright (c) 2025 Alphin Tom
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
