@@ -1,8 +1,7 @@
-{
-  "name": "codebase-md",
+{  "name": "codebase-md",
   "displayName": "CodebaseMD",
   "description": "Export your entire codebase or selected files as a Markdown file.",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "publisher": "alpha912",
   "engines": {
     "vscode": "^1.70.0"
@@ -16,13 +15,12 @@
     "onCommand:codebaseMD.exportMicro",
     "onCommand:codebaseMD.exportMicroSelected"
   ],
-  "main": "./out/extension.js",
-  "repository": {
+  "main": "./out/extension.js",  "repository": {
     "type": "git",
     "url": "https://github.com/alpha912/codebase-md.git"
   },
   "license": "MIT",
-  "icon": "assets/logo.webp",
+  "icon": "assets/logo.png",
   "contributes": {
     "commands": [
       {

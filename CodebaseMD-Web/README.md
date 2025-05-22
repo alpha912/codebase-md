@@ -1,5 +1,9 @@
 # CodebaseMD
 
+<p align="center">
+  <img src="../assets/logo.png" alt="CodebaseMD" width="400">
+</p>
+
 Convert any file to Markdown with our powerful web interface, powered by [MarkItDown](https://github.com/microsoft/markitdown).
 
 ## Overview

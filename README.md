@@ -1,9 +1,19 @@
 # CodebaseMD
 
+![CodebaseMD Banner](./assets/banner.png)
+
 [![VSCode Extension Version](https://img.shields.io/visual-studio-marketplace/v/alpha912.codebase-md)](https://marketplace.visualstudio.com/items?itemName=alpha912.codebase-md)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **CodebaseMD** is a Visual Studio Code extension that allows you to export your entire codebase or selected files as a Markdown file, making it easier to share and document your projects.
+
+## What's New in Version 2.0.3
+
+### Brand Refresh
+- **Updated Logo & Banner**: Fresh new look with modern logo and banner design
+- **Consistent Branding**: Improved visual identity throughout documentation and marketplace
+
+Check the full [release notes](releases/RELEASE-NOTES-2.0.3.md) for more details on the updates.
 
 ## What's New in Version 2.0.2
 
@@ -22,7 +32,7 @@
 - Improved extraction of file metadata
 - Fixed pattern detection for different programming paradigms
 
-Check the full [release notes](releases/RELEASE-NOTES-2.0.2.md) for more details or view our detailed [documentation](docs/micro-export-format.md) on the Micro Export format.
+Check the full [release notes](releases/RELEASE-NOTES-2.0.2.md)for more details or view our detailed [documentation](docs/micro-export-format.md) on the Micro Export format.
 
 ## Features
 
@@ -88,3 +98,8 @@ This project is licensed under the MIT License. See the [LICENSE](https://github
 - **Alphin Tom**
 - **Email**: [alphinctom@gmail.com](mailto:alphinctom@gmail.com)
 - **GitHub**: [alpha912](https://github.com/alpha912)
+
+
+<p align="center">
+  <img src="./assets/logo-with-text.png" alt="CodebaseMD" width="400">
+</p>

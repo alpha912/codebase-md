@@ -7,7 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.0.2] - 2025-05-22
+## [2.0.3] - 2025-05-22
+
+### Changed
+- Updated extension logo and banner images
+- Improved visual branding across all documentation
+- Enhanced README with more consistent visual elements
+
+## [2.0.2] - 2025-05-10
 
 ### Added
 - Comprehensive test suite with Mocha for ensuring code quality
