@@ -1,105 +1,112 @@
 # CodebaseMD
 
-![CodebaseMD Banner](./assets/banner.png)
+![CodebaseMD banner](assets/banner.png)
 
-[![VSCode Extension Version](https://img.shields.io/visual-studio-marketplace/v/alpha912.codebase-md)](https://marketplace.visualstudio.com/items?itemName=alpha912.codebase-md)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub release](https://img.shields.io/github/v/release/alpha912/codebase-md)](https://github.com/alpha912/codebase-md/releases/latest)
+[![CI](https://github.com/alpha912/codebase-md/actions/workflows/ci.yml/badge.svg)](https://github.com/alpha912/codebase-md/actions/workflows/ci.yml)
+[![Marketplace](https://img.shields.io/visual-studio-marketplace/v/alpha912.codebase-md)](https://marketplace.visualstudio.com/items?itemName=alpha912.codebase-md)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.md)
 
-**CodebaseMD** is a Visual Studio Code extension that allows you to export your entire codebase or selected files as a Markdown file, making it easier to share and document your projects.
+**Prepare code context without leaving VS Code.** Export a workspace, selected files, or Git changes as Markdown, XML, or plain text. Save it, copy it, or open it in an editor.
 
-## What's New in Version 2.0.3
+CodebaseMD runs locally. It does not upload your source code or call an AI provider.
 
-### Brand Refresh
-- **Updated Logo & Banner**: Fresh new look with modern logo and banner design
-- **Consistent Branding**: Improved visual identity throughout documentation and marketplace
+[Install from GitHub Releases](https://github.com/alpha912/codebase-md/releases/latest) · [Documentation](docs/README.md) · [Changelog](docs/changelog.md) · [Report an issue](https://github.com/alpha912/codebase-md/issues)
 
-Check the full [release notes](releases/RELEASE-NOTES-2.0.3.md) for more details on the updates.
+## Start in a minute
 
-## What's New in Version 2.0.2
+1. Download the `.vsix` from [GitHub Releases](https://github.com/alpha912/codebase-md/releases/latest).
+2. In VS Code, open **Extensions → … → Install from VSIX…**, then select the file.
+3. Open a local workspace and run **CodebaseMD: Export Wizard** from the Command Palette.
+4. Choose your scope, content mode, output format, and destination.
 
-### Features & Improvements
-- **Enhanced Micro Export Format**: Improved code structure analysis with detection of class properties, methods, and function patterns
-- **Automatic Flow Detection**: Identify code flow patterns (async/await, try/catch, conditionals) 
-- **Improved Component Representation**: Detailed component visualization with visibility indicators and type annotations
-- **Comprehensive Test Suite**: Added extensive test framework with Mocha to ensure reliability
-- **Improved File Handling**: Better support for different file types and programming languages
-- **Enhanced Markdown Generation**: Better clarity and organization in exported markdown documents
+The Marketplace has its own publication schedule; use the GitHub VSIX for this release. VS Code 1.70 or later is required. Git is needed only for Git exports.
 
-### Bug Fixes
-- Fixed issues with file type detection and language mapping
-- Resolved edge cases in folder structure generation
-- Enhanced error handling throughout the codebase
-- Improved extraction of file metadata
-- Fixed pattern detection for different programming paradigms
+## What's new in version 3.0.0
 
-Check the full [release notes](releases/RELEASE-NOTES-2.0.2.md)for more details or view our detailed [documentation](docs/micro-export-format.md) on the Micro Export format.
+| Capability | What you can do |
+| --- | --- |
+| Export Wizard | Choose workspace, selected files/folders, Git changes, or current file |
+| Output formats | Generate Markdown with a contents list, escaped XML, or plain text |
+| Destinations | Save a file, copy to clipboard, or open an editable document |
+| Content modes | Include full source, existing Micro summaries, or best-effort skeletons |
+| Context budgets | See approximate tokens per file and language; warn before exceeding a budget |
+| Git context | Export changes against HEAD, untracked files, and optional filtered diffs |
+| Secret redaction | Replace recognizable credentials before exporting; report counts |
+| File handling | Respect nested ignore rules, skip symlinks, bound file sizes, and cancel exports |
 
-## Features
+The four existing commands still save Markdown. Micro retains its established summary format. Read the [v3 release notes](releases/RELEASE-NOTES-3.0.0.md) for migration details.
 
-- **1-Click Export Entire Codebase as Markdown**: Export your entire project into a single markdown file with the folder structure and code files included.
-- **Exclude Unnecessary Files Automatically**: Automatically excludes files and folders like those in `.gitignore`, `node_modules`, `build`, `out`, and large files such as `package-lock.json`.
-- **Export Selected Files**: Right-click on selected files or folders and export only those to Markdown.
-- **Markdown Compatible Output**: Only actively coded files with supported extensions (e.g., `.js`, `.ts`, `.py`, `.html`, etc.) are included with their contents, while unsupported files are listed with their names and paths.
-- **Micro Export Format** (New in v2.0): Generate condensed representations of your code with intelligent structure analysis, code flow detection, and design pattern recognition. [Learn more](docs/micro-export-format.md).
+## Commands
 
-## Installation
+| Command Palette title | Behavior |
+| --- | --- |
+| **CodebaseMD: Export Wizard** | Four-step export flow |
+| **CodebaseMD: Export Git Changes** | Changed files using configured output options |
+| **CodebaseMD: Copy Current File** | Copy the active saved file, including unsaved edits |
+| **Export Codebase as Markdown** | Full workspace to a Markdown file |
+| **Export Selected as Markdown** | Selected files/folders to Markdown |
+| **Export Micro Codebase** | Workspace Micro summary to Markdown |
+| **Export Selected as Micro Codebase** | Selected Micro summary to Markdown |
 
-### From Visual Studio Marketplace
+The two selected-export commands also appear in the Explorer context menu. From the Command Palette, they open a file/folder picker. Multi-root workspaces prompt for one folder per export.
 
-You can install **CodebaseMD** directly from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=alpha912.codebase-md).
+## Settings
 
-### Manually via VSIX
+Search for **CodebaseMD** in Settings. All keys below use the `codebaseMD.` prefix and can be configured per workspace folder.
 
-1. Download the `.vsix` file from the [releases section](https://github.com/alpha912/codebase-md/releases).
-2. Open **VS Code**.
-3. Go to **Extensions** (`Ctrl+Shift+X` or `Cmd+Shift+X` on macOS).
-4. Click on the **three dots** in the top-right corner, then choose **Install from VSIX**.
-5. Select the downloaded `.vsix` file.
+| Setting | Default | Meaning |
+| --- | --- | --- |
+| `format` | `markdown` | `markdown`, `xml`, or `text` |
+| `contentMode` | `full` | `full`, `micro`, or `skeleton` |
+| `target` | `file` | `file`, `clipboard`, or `editor` |
+| `tokenBudget` | `32000` | Warning threshold; `0` disables warnings |
+| `redactSecrets` | `true` | Heuristic redaction of recognizable secrets |
+| `maxFileSizeKB` | `1024` | Maximum content/diff size per file in KiB |
+| `exclude` | `[]` | Additional gitignore-style exclusions |
+| `respectGitignore` | `true` | Apply root and nested `.gitignore` rules |
+| `includeDiff` | `false` | Add tracked-file diffs to Git exports |
+| `lineNumbers` | `false` | Number lines in the exported representation |
+| `customHeader` | empty | Add your task or instructions |
 
-## Usage
+The wizard starts from these defaults. Original commands retain their full/Micro and Markdown-to-file behavior; Copy Current File always uses the clipboard.
 
-### 1. Export the Entire Codebase
+## Choose what is shared
 
-- Open the **Command Palette** (`Ctrl+Shift+P` or `Cmd+Shift+P`).
-- Search for and run the command **Export Codebase as Markdown**.
+- **`.gitignore` and `exclude`** remove matching files entirely, including their paths.
+- **`.codebaseignore`** in the workspace root hides matching contents but retains paths in the tree.
+- **Default exclusions** skip dependency/build directories, lockfiles, archives, and default `codebase-export.*` output names.
+- **Size and binary checks** replace unavailable content with an omission notice. Symbolic links and junctions are skipped.
 
-### 2. Export Selected Files/Folders
+These rules also apply to explicit selections. See [configuration examples](docs/configuration.md).
 
-- In the **Explorer** view, select multiple files or folders.
-- Right-click and choose **Export Selected as Markdown**.
+## Accuracy and scope
 
-### 3. Use the Micro Export Format
+**Token estimates** use `ceil(characters / 4)`, not a model tokenizer. File statistics cover transformed content. The budget warning covers the entire formatted output, including headers and diffs. Actual model usage can differ substantially.
 
-- Open the **Command Palette** (`Ctrl+Shift+P` or `Cmd+Shift+P`).
-- Search for and run the command **Export Micro Codebase**.
-- Alternatively, right-click on files or folders and choose **Export Selected as Micro Codebase**.
+**Micro and skeleton modes** use heuristics, not complete language parsers. Skeletons may miss multiline declarations or misidentify signatures; files without recognized declarations retain full content. Line numbers in condensed modes refer to the exported representation.
 
-### Example of Exported Markdown
+**Secret redaction** recognizes common provider tokens, JWTs, private keys, and password/token assignments. It can miss secrets or redact ordinary values. Review exports before sharing them. Paths remain visible unless excluded; redaction reports contain counts, not matched values.
 
-The exported markdown file will have:
+**Git exports** use disk/index changes against HEAD to select files. Buffer-only edits do not add files to this scope, although selected open files use editor content. Diffs reflect disk/index state, omit deleted/excluded/unavailable contents, and do not include untracked-file patches. Deleted paths remain listed. Repositories without commits are supported. Git exports require workspace trust.
 
-- **Project Statistics**: Total number of files exported.
-- **Folder Structure**: A tree-like structure of your project.
-- **Code Files**: Each file's contents enclosed in a code block with proper syntax highlighting.
-- **Unsupported Files**: Unsupported file types will be listed with their file paths but not their contents.
+**Local workspaces** are supported, one folder per export. Virtual filesystem workspaces and untitled files are not supported.
 
-## Contributing
+## Development
 
-Contributions are welcome! Feel free to open issues, submit pull requests, or suggest new features.
+Use Node.js 22.12+ (Node 24 recommended) and Git:
+
+```sh
+npm ci
+npm test
+npm run test:integration
+npm run package
+```
+
+Unit tests import production modules and create temporary Git repositories. Integration tests launch a VS Code host and verify commands, clipboard output, and unsaved content. Linux integration tests require a display (`xvfb-run -a npm run test:integration` in CI). The CI workflow tests Windows and Linux and retains the built VSIX as an artifact.
+
+See [contributing](CONTRIBUTING.md), the [developer module reference](docs/api-reference.md), and the [research and implementation plan](docs/v3-plan.md). The separate [web prototype](CodebaseMD-Web/README.md) is not part of this extension release.
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](https://github.com/alpha912/codebase-md/blob/master/LICENSE.md) file for details.
-
----
-
-### **Author**
-
-- **Alphin Tom**
-- **Email**: [alphinctom@gmail.com](mailto:alphinctom@gmail.com)
-- **GitHub**: [alpha912](https://github.com/alpha912)
-
-
-<p align="center">
-  <img src="./assets/logo-with-text.png" alt="CodebaseMD" width="400">
-</p>
+[MIT](LICENSE.md) · Created by [Alphin Tom](https://github.com/alpha912).

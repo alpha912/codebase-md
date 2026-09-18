@@ -1,76 +1,23 @@
-# API Reference
+# Developer API Reference
 
-CodebaseMD is a Visual Studio Code extension and does not expose a public API for other extensions to consume. However, this document provides an overview of the main functions and their purposes within the extension.
+CodebaseMD does not expose a stable external programmatic API. Its production modules are independently testable:
 
-## Core Functions
+| Module | Responsibility |
+| --- | --- |
+| `src/extension.ts` | VS Code commands, wizard, progress, budget warning and output destinations |
+| `src/config.ts` | Validated resource-scoped settings |
+| `src/exporter.ts` | Collect, read, transform and render an export |
+| `src/fsUtils.ts` | Ignore rules, safe traversal, containment and deduplication |
+| `src/git.ts` | Changed file discovery and filtered diffs |
+| `src/analyzer.ts` | Existing Micro representation and language mapping |
+| `src/skeleton.ts` | Best-effort declaration outlines |
+| `src/secrets.ts` | Heuristic redaction and counts |
+| `src/tokens.ts` | Character-based token estimate |
+| `src/formatters.ts` | Markdown, XML, text and folder tree rendering |
+| `src/types.ts` | Options, export document types and cancellation contract |
 
-### `activate(context: vscode.ExtensionContext)`
+`exportCodebase(root, options, request, hooks)` returns a document, formatted content and final-output token estimate. `request` can provide selected absolute paths or enable Git scope. Hooks provide cancellation, progress and optional editor-buffer content. It does not write files or modify the clipboard. The command layer owns those effects.
 
-This function is called when the extension is activated. It registers the commands that the extension provides.
+The original command IDs remain `codebaseMD.exportAll`, `codebaseMD.exportSelected`, `codebaseMD.exportMicro` and `codebaseMD.exportMicroSelected`. New commands are `codebaseMD.exportWizard`, `codebaseMD.exportGitChanges` and `codebaseMD.copyCurrentFile`. Selected commands accept a resource URI and an optional array of selected URIs.
 
-### `exportCodebase()`
-
-Exports the entire codebase of the currently open workspace.
-
-### `exportSelectedFiles(uris: vscode.Uri[])`
-
-Exports only the selected files and folders.
-
-### `getAllFiles(dir: string): Promise<string[]>`
-
-Recursively gets all files in a directory, respecting ignore patterns.
-
-### `getFilesFromUris(uris: vscode.Uri[]): Promise<string[]>`
-
-Gets all files from the provided URIs, which may include both files and folders.
-
-### `createIgnoreInstance(rootDir: string): Ignore`
-
-Creates an instance of the `ignore` package, configured with patterns from `.gitignore` and default ignored items.
-
-### `isLargeFile(fileName: string): boolean`
-
-Determines if a file should be considered "large" and excluded from the export.
-
-### `isSupportedFile(fileName: string): boolean`
-
-Checks if a file type is supported for content export.
-
-### `generateMarkdown(files: string[], rootPath: string): Promise<string>`
-
-Generates the Markdown content for the given files.
-
-### `generateFolderStructure(files: string[], rootPath: string): string`
-
-Creates a tree-like representation of the folder structure.
-
-### `saveMarkdownFile(content: string)`
-
-Prompts the user to choose a save location and saves the generated Markdown content.
-
-## Extension Commands
-
-CodebaseMD registers two commands that can be invoked from the Command Palette:
-
-1. `codebaseMD.exportAll`: Exports the entire codebase as Markdown.
-2. `codebaseMD.exportSelected`: Exports selected files or folders as Markdown.
-
-## Events
-
-CodebaseMD does not currently emit any custom events.
-
-## Configuration
-
-The extension does not currently use VS Code's configuration API. All configuration is hard-coded in the source files.
-
-## Extending CodebaseMD
-
-While CodebaseMD doesn't provide an API for other extensions, you can fork the project and modify it to suit your needs. Some potential extension points include:
-
-- Adding new file type support
-- Implementing custom markdown generation logic
-- Adding new commands for different export options
-
-If you develop features that you think would be valuable to the community, consider submitting a pull request to the main repository.
-
-For more information on developing extensions for Visual Studio Code, refer to the [official documentation](https://code.visualstudio.com/api).
+Run `npm test` for production module tests and `npm run test:integration` for extension-host command checks. Build outputs belong in `out/`.

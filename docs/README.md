@@ -4,7 +4,7 @@
   <img src="../assets/logo.png" alt="CodebaseMD Logo" width="100" height="100">
 </p>
 
-Welcome to the documentation for CodebaseMD, a Visual Studio Code extension that allows you to export your codebase or selected files as a Markdown file.
+Welcome to CodebaseMD 3.0: export code context as Markdown, XML or text to a file, clipboard or editor. Start with the [Export Wizard and settings](../README.md#whats-new-in-version-300), or read the [v3 release notes](../releases/RELEASE-NOTES-3.0.0.md).
 
 ## Table of Contents
 

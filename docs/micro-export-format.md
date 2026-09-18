@@ -1,8 +1,8 @@
-# CodebaseMD Extension v2.0.2
+# Micro Export Format
 
 ## Micro Export Format Improvements
 
-The 2.0.2 release brings significant improvements to the Micro Export format, providing a more detailed and structured view of your codebase. The goal is to give you a quick but comprehensive understanding of each file's structure and purpose without diving into the full code.
+CodebaseMD 3.0 retains the Micro representation introduced in v2.0 and improved in v2.0.2. This heuristic analyzer summarizes recognizable declarations, members, and flow patterns; it is not a full parser and may miss or misidentify constructs. Use full mode when exact source is required. Compression depends on the input and has no guaranteed ratio.
 
 ### Enhanced Features
 

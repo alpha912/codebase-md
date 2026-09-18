@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0] - 2026-09-18
+
+### Added
+- Export Wizard, Git Changes export and Current File copy.
+- Markdown/XML/text formats; file/clipboard/editor destinations.
+- Token estimates, budget warnings, secret redaction, skeleton mode and real settings.
+- Filtered diffs, nested ignore rules, file-size limits, cancellation and language statistics.
+
+### Changed
+- Modular production code and tests that import it, with extension-host command checks.
+- Existing commands retain Markdown-to-file behavior and the established Micro format.
+
+See [release notes](../releases/RELEASE-NOTES-3.0.0.md) for compatibility and limitations.
+
 ## [2.0.3] - 2025-05-22
 
 ### Changed

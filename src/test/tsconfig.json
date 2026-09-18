@@ -3,8 +3,8 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es2015",
-    "outDir": "../../out/test",
-    "rootDir": ".",
+    "outDir": "../../out",
+    "rootDir": "..",
     "sourceMap": true,
     "strict": true,
     "esModuleInterop": true,

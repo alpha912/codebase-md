@@ -1,0 +1,13 @@
+src/**
+out/test/**
+**/*.map
+CodebaseMD-Web/**
+.vscode-test/**
+.gitignore
+tsconfig.json
+docs/v3-plan.md
+*.vsix
+integration-test.log
+.github/**
+scripts/**
+*.sha256

@@ -1,93 +1,36 @@
 # Configuration
 
-Currently, CodebaseMD does not have user-configurable settings through the Visual Studio Code settings interface. However, you can customize some behaviors by modifying the source code directly.
+CodebaseMD 3.0 exposes settings under **Settings → CodebaseMD**. Settings can be set per workspace folder. See the [complete settings table](../README.md#settings) for defaults and descriptions.
 
-## Using .codebaseignore File
+Example workspace settings:
 
-CodebaseMD supports a special `.codebaseignore` file that works similarly to `.gitignore` but specifically for controlling what file contents are exported:
-
-1. Create a `.codebaseignore` file in the root of your workspace
-2. Add file patterns following the same syntax as `.gitignore`
-3. Files matching these patterns will still be listed in the folder structure but their contents will be excluded from the export
-
-Example `.codebaseignore` file:
-```
-# Exclude all test files
-*.test.js
-*.spec.js
-__tests__/
-
-# Exclude configuration files
-.eslintrc
-.prettierrc
-tsconfig.json
-
-# Exclude specific files or directories
-src/legacy/
-temp.js
-```
-
-## Customizing Ignored Files and Directories
-
-To change which files and directories are ignored during export:
-
-1. Open the `src/extension.ts` file in the project
-2. Locate the `createIgnoreInstance` function
-3. Modify the `ig.add()` call to add or remove patterns from the ignore list
-
-Example:
-
-```typescript
-ig.add([
-  'node_modules/',
-  'build/',
-  'out/',
-  'dist/',
-  '.git/',
-  // Add your custom ignore patterns here
-  'custom-ignore-folder/',
-  '*.custom-extension'
-]);
-```
-
-## Customizing Supported File Types
-
-To change which file types are considered "supported" and have their contents included in the export:
-
-1. Open the `src/extension.ts` file
-2. Find the `isSupportedFile` function
-3. Modify the `supportedExtensions` array to add or remove file extensions
-
-Example:
-
-```typescript
-const supportedExtensions = [
-  '.js', '.jsx', '.ts', '.tsx', '.html', '.css', '.scss', '.json', '.md', '.txt',
-  '.py', '.java', '.c', '.cpp', '.cs', '.rb', '.go', '.php', '.sh', '.xml',
-  // Add your custom extensions here
-  '.custom', '.myext'
-];
-```
-
-## Customizing Large File Exclusions
-
-To change which files are considered "large" and excluded from the export:
-
-1. Open the `src/extension.ts` file
-2. Locate the `isLargeFile` function
-3. Modify the `largeFiles` array to add or remove file names
-
-Example:
-
-```typescript
-function isLargeFile(fileName: string): boolean {
-  const largeFiles = ['package-lock.json', 'yarn.lock', 'my-large-file.json'];
-  return largeFiles.includes(fileName);
+```json
+{
+  "codebaseMD.format": "xml",
+  "codebaseMD.contentMode": "full",
+  "codebaseMD.target": "clipboard",
+  "codebaseMD.tokenBudget": 32000,
+  "codebaseMD.redactSecrets": true,
+  "codebaseMD.maxFileSizeKB": 1024,
+  "codebaseMD.exclude": ["fixtures/", "*.generated.ts"],
+  "codebaseMD.includeDiff": false
 }
 ```
 
-**Note**: After making any changes to the source code, you'll need to recompile the extension and reinstall it in Visual Studio Code for the changes to take effect.
+The four original export commands always save Markdown and use their original full/Micro modes. The wizard uses configured defaults and lets you choose all output options. Git export uses the configured format, mode and destination; Copy Current File always uses the clipboard.
 
-## Future Configuration Plans
+## Content exclusions
 
-We plan to add user-configurable settings in future versions of CodebaseMD. This will allow users to customize the extension's behavior without modifying the source code. If you have suggestions for configurable options, please [open an issue](https://github.com/alpha912/codebase-md/issues) on GitHub.
+Create `.codebaseignore` in the workspace root to omit file contents while retaining paths in the exported tree:
+
+```gitignore
+*.test.ts
+private/
+.env*
+```
+
+Use `codebaseMD.exclude` or `.gitignore` when paths should also be omitted. Root and nested `.gitignore` files are respected unless `respectGitignore` is disabled. Default dependency/build/archive exclusions still apply. Selected files follow the same filters as workspace exports.
+
+## Limits
+
+Files above `maxFileSizeKB`, binary files and unsupported types receive omission notices. Symbolic links and junctions are skipped. Token estimates, redaction and skeleton extraction are heuristic; see [accuracy and scope](../README.md#accuracy-and-scope). No source edits or rebuilds are needed to change settings.

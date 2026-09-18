@@ -31,12 +31,13 @@ git checkout -b feature/my-new-feature
 - For new features, be sure to update/add relevant tests.
 - For bug fixes, provide steps in your pull request for testing the fix.
 
-### 5. Lint and Test Your Changes
+### 5. Compile and Test Your Changes
 
-Ensure that the code is clean and free of linting issues by running the following:
+Use Node.js 22.12+ (Node 24 recommended) and Git. Install dependencies and compile the TypeScript sources:
 
 ```
-npm run lint
+npm ci
+npm run compile
 ```
 
 If you made significant changes, also run tests to ensure everything works correctly:
@@ -44,6 +45,12 @@ If you made significant changes, also run tests to ensure everything works corre
 ```
 npm test
 ```
+
+Unit tests exercise production modules and use temporary Git repositories (Git must be installed). Run `npm run test:integration` for VS Code extension-host tests and `npm run package` to build a VSIX. Compiled output lives in `out/`; do not add generated JavaScript under `src/`.
+
+### Release maintainers
+
+Update `package.json`, the lockfile, changelog, README and `releases/RELEASE-NOTES-<version>.md`. A commit on `main` whose message starts with `release:` triggers publication **only after both Windows and Linux CI jobs pass**. The release job packages the verified commit, creates a draft with the VSIX and SHA-256 checksum, and publishes it as the latest GitHub release. Ordinary commits and pull requests cannot publish. Existing release tags are not overwritten. Marketplace publication remains a separate explicit action.
 
 ### 6. Commit Your Changes
 

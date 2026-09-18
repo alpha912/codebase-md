@@ -2,6 +2,8 @@
 
 There are two ways to install the CodebaseMD extension for Visual Studio Code:
 
+For v3.0.0, install the VSIX from GitHub Releases. Marketplace publishing is separate and its version may differ. The extension supports VS Code 1.70+ and local filesystem workspaces.
+
 ## 1. From Visual Studio Marketplace
 
 1. Open Visual Studio Code
@@ -27,6 +29,6 @@ To verify that CodebaseMD has been installed correctly:
 
 1. Open the Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P`)
 2. Type "CodebaseMD"
-3. You should see the commands "Export Codebase as Markdown" and "Export Selected as Markdown" in the list
+3. Run **CodebaseMD: Export Wizard**. The original Markdown and Micro commands are also available.
 
 If you encounter any issues during installation, please refer to the [Troubleshooting](./troubleshooting.md) guide or [open an issue](https://github.com/alpha912/codebase-md/issues) on GitHub.

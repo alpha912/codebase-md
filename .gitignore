@@ -3,3 +3,6 @@
 /.vscode
 .vscode-test
 commit_log.json
+*.vsix
+integration-test.log
+*.vsix.sha256

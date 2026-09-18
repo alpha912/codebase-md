@@ -1,6 +1,6 @@
 import * as path from 'path';
+import * as fs from 'fs';
 import Mocha = require('mocha');
-import { glob } from 'glob';
 
 export function run(): Promise<void> {
 	// Create the mocha test
@@ -12,12 +12,16 @@ export function run(): Promise<void> {
 
 	const testsRoot = path.resolve(__dirname, '..');
 
-	return new Promise(async (c, e) => {
+	return new Promise((c, e) => {
 		try {
-			const files = await glob('**/**.test.js', { cwd: testsRoot });
-			
-			// Add files to the test suite
-			files.forEach(f => mocha.addFile(path.resolve(testsRoot, f)));			// Run the mocha test
+			function addTests(directory: string): void {
+				for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+					const file = path.join(directory, entry.name);
+					if (entry.isDirectory()) { addTests(file); }
+					else if (entry.name.endsWith('.test.js')) { mocha.addFile(file); }
+				}
+			}
+			addTests(testsRoot);
 			mocha.run((failures: number) => {
 				if (failures > 0) {
 					e(new Error(`${failures} tests failed.`));

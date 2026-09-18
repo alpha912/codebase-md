@@ -1,10 +1,12 @@
-{  "name": "codebase-md",
+{
+  "name": "codebase-md",
   "displayName": "CodebaseMD",
-  "description": "Export your entire codebase or selected files as a Markdown file.",
-  "version": "2.0.3",
+  "description": "Export codebases as Markdown, XML or text with token estimates, secret redaction, Git context and compact views.",
+  "version": "3.0.0",
   "publisher": "alpha912",
   "engines": {
-    "vscode": "^1.70.0"
+    "vscode": "^1.70.0",
+    "node": ">=22.12.0"
   },
   "categories": [
     "Other"
@@ -13,9 +15,13 @@
     "onCommand:codebaseMD.exportAll",
     "onCommand:codebaseMD.exportSelected",
     "onCommand:codebaseMD.exportMicro",
-    "onCommand:codebaseMD.exportMicroSelected"
+    "onCommand:codebaseMD.exportMicroSelected",
+    "onCommand:codebaseMD.exportWizard",
+    "onCommand:codebaseMD.exportGitChanges",
+    "onCommand:codebaseMD.copyCurrentFile"
   ],
-  "main": "./out/extension.js",  "repository": {
+  "main": "./out/extension.js",
+  "repository": {
     "type": "git",
     "url": "https://github.com/alpha912/codebase-md.git"
   },
@@ -38,6 +44,18 @@
       {
         "command": "codebaseMD.exportMicroSelected",
         "title": "Export Selected as Micro Codebase"
+      },
+      {
+        "command": "codebaseMD.exportWizard",
+        "title": "CodebaseMD: Export Wizard"
+      },
+      {
+        "command": "codebaseMD.exportGitChanges",
+        "title": "CodebaseMD: Export Git Changes"
+      },
+      {
+        "command": "codebaseMD.copyCurrentFile",
+        "title": "CodebaseMD: Copy Current File"
       }
     ],
     "menus": {
@@ -53,28 +71,142 @@
           "group": "navigation"
         }
       ]
+    },
+    "configuration": {
+      "title": "CodebaseMD",
+      "properties": {
+        "codebaseMD.format": {
+          "type": "string",
+          "default": "markdown",
+          "description": "Default format for new export commands.",
+          "enum": [
+            "markdown",
+            "xml",
+            "text"
+          ],
+          "scope": "resource"
+        },
+        "codebaseMD.contentMode": {
+          "type": "string",
+          "default": "full",
+          "description": "Default content representation.",
+          "enum": [
+            "full",
+            "micro",
+            "skeleton"
+          ],
+          "scope": "resource"
+        },
+        "codebaseMD.target": {
+          "type": "string",
+          "default": "file",
+          "description": "Default destination for Git exports.",
+          "enum": [
+            "file",
+            "clipboard",
+            "editor"
+          ],
+          "scope": "resource"
+        },
+        "codebaseMD.tokenBudget": {
+          "type": "number",
+          "default": 32000,
+          "description": "Warn before exporting above this estimated token budget. Zero disables warnings.",
+          "minimum": 0,
+          "scope": "resource"
+        },
+        "codebaseMD.redactSecrets": {
+          "type": "boolean",
+          "default": true,
+          "description": "Redact recognizable secrets. Heuristic detection cannot guarantee removal of every secret.",
+          "scope": "resource"
+        },
+        "codebaseMD.maxFileSizeKB": {
+          "type": "number",
+          "default": 1024,
+          "description": "Maximum file size to read in KiB.",
+          "minimum": 1,
+          "maximum": 102400,
+          "scope": "resource"
+        },
+        "codebaseMD.exclude": {
+          "type": "array",
+          "default": [],
+          "description": "Additional gitignore-style paths to exclude entirely.",
+          "items": {
+            "type": "string"
+          },
+          "scope": "resource"
+        },
+        "codebaseMD.respectGitignore": {
+          "type": "boolean",
+          "default": true,
+          "description": "Respect root and nested .gitignore files.",
+          "scope": "resource"
+        },
+        "codebaseMD.includeDiff": {
+          "type": "boolean",
+          "default": false,
+          "description": "Include filtered tracked-file diffs against HEAD in Git exports.",
+          "scope": "resource"
+        },
+        "codebaseMD.lineNumbers": {
+          "type": "boolean",
+          "default": false,
+          "description": "Add line numbers to the exported representation.",
+          "scope": "resource"
+        },
+        "codebaseMD.customHeader": {
+          "type": "string",
+          "default": "",
+          "description": "Text added to each export.",
+          "scope": "resource"
+        }
+      }
     }
-  },  "scripts": {
+  },
+  "scripts": {
     "vscode:prepublish": "tsc -p ./",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "test-compile": "tsc -p ./ && tsc -p ./src/test/",
+    "test-compile": "tsc -p ./",
     "pretest": "npm run test-compile",
-    "test": "node ./out/test/runTest.js",
+    "test": "mocha --ui tdd --timeout 15000 \"out/test/unit/**/*.test.js\"",
     "package": "vsce package",
-    "publish": "vsce publish"
+    "publish": "vsce publish",
+    "test:integration": "npm run compile && node ./out/test/runTest.js"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",
     "@types/node": "^16.18.11",
     "@types/vscode": "^1.70.0",
     "@vscode/test-electron": "^2.5.2",
-    "glob": "^11.0.2",
-    "mocha": "^11.4.0",
-    "typescript": "^4.8.4",
-    "vsce": "^2.7.0"
+    "@vscode/vsce": "^4.0.0",
+    "mocha": "^12.0.2",
+    "typescript": "^4.8.4"
   },
   "dependencies": {
     "ignore": "^5.3.2"
-  }
+  },
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": "limited",
+      "description": "Local exports are available. Git exports require workspace trust."
+    },
+    "virtualWorkspaces": {
+      "supported": false,
+      "description": "CodebaseMD requires a local filesystem workspace."
+    }
+  },
+  "bugs": {
+    "url": "https://github.com/alpha912/codebase-md/issues"
+  },
+  "homepage": "https://github.com/alpha912/codebase-md#readme",
+  "keywords": [
+    "markdown",
+    "codebase",
+    "context",
+    "export",
+    "llm"
+  ]
 }
