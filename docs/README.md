@@ -15,6 +15,8 @@ Welcome to CodebaseMD 3.0: export code context as Markdown, XML or text to a fil
 5. [Contributing](./contributing.md)
 6. [Changelog](./changelog.md)
 7. [Troubleshooting](./troubleshooting.md)
+8. [Micro Export Format](https://github.com/alpha912/codebase-md/blob/main/docs/micro-export-format.md)
+9. [v3 Plan and Research](https://github.com/alpha912/codebase-md/blob/main/docs/v3-plan.md)
 
 For the main project README, please refer to the [README.md](../README.md) in the root directory.
 
