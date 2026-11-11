@@ -2,7 +2,7 @@
 
 There are two ways to install the CodebaseMD extension for Visual Studio Code:
 
-For v3.0.0, install the VSIX from GitHub Releases. Marketplace publishing is separate and its version may differ. The extension supports VS Code 1.70+ and local filesystem workspaces.
+For v3.0.0, install the VSIX from GitHub Releases. Marketplace publishing is separate and its version may differ. The extension supports VS Code 1.146+ and local filesystem workspaces.
 
 ## 1. From Visual Studio Marketplace
 

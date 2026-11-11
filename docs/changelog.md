@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Minimum supported VS Code is now 1.146 (previously 1.70).
+- Development tooling: TypeScript 7, Bun for installs and scripts (`bun.lock` replaces `package-lock.json`), and Biome for linting and formatting.
+- Dependency updates, including `ignore` 7.
+
 ## [3.0.0] - 2026-09-18
 
 ### Added

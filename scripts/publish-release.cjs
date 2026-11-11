@@ -14,7 +14,19 @@ const notes = `releases/RELEASE-NOTES-${version}.md`;
 const digest = crypto.createHash('sha256').update(fs.readFileSync(asset)).digest('hex');
 fs.accessSync(notes);
 fs.writeFileSync(checksum, `${digest}  ${asset}\n`);
-const gh = args => execFileSync('gh', args, { stdio: 'inherit' });
-gh(['release', 'create', tag, asset, checksum, '--draft', '--target', commit,
-  '--title', `CodebaseMD ${version}`, '--notes-file', notes]);
+const gh = (args) => execFileSync('gh', args, { stdio: 'inherit' });
+gh([
+  'release',
+  'create',
+  tag,
+  asset,
+  checksum,
+  '--draft',
+  '--target',
+  commit,
+  '--title',
+  `CodebaseMD ${version}`,
+  '--notes-file',
+  notes,
+]);
 gh(['release', 'edit', tag, '--draft=false', '--latest']);

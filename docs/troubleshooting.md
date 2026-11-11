@@ -2,7 +2,7 @@
 
 ## Commands are missing
 
-Confirm the extension is enabled, reload VS Code, and search for **CodebaseMD: Export Wizard**. The v3 GitHub VSIX may be newer than the Marketplace version. VS Code 1.70 or later is required.
+Confirm the extension is enabled, reload VS Code, and search for **CodebaseMD: Export Wizard**. The v3 GitHub VSIX may be newer than the Marketplace version. VS Code 1.146 or later is required.
 
 ## No files to export
 

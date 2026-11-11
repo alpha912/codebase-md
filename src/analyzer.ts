@@ -1,4 +1,4 @@
-import * as path from 'path';
+import * as path from 'node:path';
 
 export function condenseMicroCode(code: string, fileName: string, filePath: string): string {
   // Extract language based on file extension
@@ -27,10 +27,10 @@ export function condenseMicroCode(code: string, fileName: string, filePath: stri
   // Add exports/public interface summary
   if (structure.exports && structure.exports.length > 0) {
     const exportCounts = {
-      classes: structure.exports.filter(e => e.type === 'class').length,
-      interfaces: structure.exports.filter(e => e.type === 'interface').length,
-      functions: structure.exports.filter(e => e.type === 'function').length,
-      variables: structure.exports.filter(e => e.type === 'variable').length
+      classes: structure.exports.filter((e) => e.type === 'class').length,
+      interfaces: structure.exports.filter((e) => e.type === 'interface').length,
+      functions: structure.exports.filter((e) => e.type === 'function').length,
+      variables: structure.exports.filter((e) => e.type === 'variable').length,
     };
 
     condensed += `EXPORT [`;
@@ -61,7 +61,7 @@ export function condenseMicroCode(code: string, fileName: string, filePath: stri
 }
 
 export function getLanguageFromExtension(ext: string): string {
-  const langMap: {[key: string]: string} = {
+  const langMap: { [key: string]: string } = {
     '.js': 'javascript',
     '.jsx': 'javascript',
     '.ts': 'typescript',
@@ -83,13 +83,35 @@ export function getLanguageFromExtension(ext: string): string {
     '.swift': 'swift',
     '.kt': 'kotlin',
     '.dart': 'dart',
-    '.mjs': 'javascript', '.cjs': 'javascript', '.h': 'c', '.hpp': 'cpp',
-    '.xml': 'xml', '.yaml': 'yaml', '.yml': 'yaml', '.toml': 'toml',
-    '.sh': 'bash', '.ps1': 'powershell', '.bat': 'bat', '.sql': 'sql',
-    '.txt': 'text', '.ini': 'ini', '.lua': 'lua', '.r': 'r', '.pl': 'perl',
-    '.hs': 'haskell', '.erl': 'erlang', '.ex': 'elixir', '.exs': 'elixir',
-    '.el': 'lisp', '.jl': 'julia', '.scala': 'scala', '.vue': 'vue',
-    '.svelte': 'svelte', '.csv': 'csv', '.graphql': 'graphql', '.proto': 'protobuf'
+    '.mjs': 'javascript',
+    '.cjs': 'javascript',
+    '.h': 'c',
+    '.hpp': 'cpp',
+    '.xml': 'xml',
+    '.yaml': 'yaml',
+    '.yml': 'yaml',
+    '.toml': 'toml',
+    '.sh': 'bash',
+    '.ps1': 'powershell',
+    '.bat': 'bat',
+    '.sql': 'sql',
+    '.txt': 'text',
+    '.ini': 'ini',
+    '.lua': 'lua',
+    '.r': 'r',
+    '.pl': 'perl',
+    '.hs': 'haskell',
+    '.erl': 'erlang',
+    '.ex': 'elixir',
+    '.exs': 'elixir',
+    '.el': 'lisp',
+    '.jl': 'julia',
+    '.scala': 'scala',
+    '.vue': 'vue',
+    '.svelte': 'svelte',
+    '.csv': 'csv',
+    '.graphql': 'graphql',
+    '.proto': 'protobuf',
   };
 
   return langMap[ext] || 'unknown';
@@ -97,19 +119,19 @@ export function getLanguageFromExtension(ext: string): string {
 
 // Add a helper function to get language for files without extensions
 export function getLanguageForSpecialFile(fileName: string): string {
-  const specialFileMap: {[key: string]: string} = {
-    'Dockerfile': 'dockerfile',
+  const specialFileMap: { [key: string]: string } = {
+    Dockerfile: 'dockerfile',
     'docker-compose': 'yaml',
-    'Makefile': 'makefile',
-    'Jenkinsfile': 'groovy',
+    Makefile: 'makefile',
+    Jenkinsfile: 'groovy',
     '.gitignore': 'gitignore',
     '.dockerignore': 'gitignore',
     '.env': 'dotenv',
     '.babelrc': 'json',
     '.eslintrc': 'json',
     '.prettierrc': 'json',
-    'Vagrantfile': 'ruby',
-    'Procfile': 'procfile'
+    Vagrantfile: 'ruby',
+    Procfile: 'procfile',
   };
 
   return specialFileMap[fileName] || 'plaintext';
@@ -140,7 +162,7 @@ interface FileStructure {
   patterns: string[];
 }
 
-function extractFileMetadata(code: string, language: string, filePath: string): FileMetadata {
+function extractFileMetadata(code: string, language: string, _filePath: string): FileMetadata {
   // Extract top comments for description
   const lines = code.split('\n');
   let description = '';
@@ -149,20 +171,17 @@ function extractFileMetadata(code: string, language: string, filePath: string): 
   // Simple extraction of imports/dependencies based on language
   if (language === 'javascript' || language === 'typescript') {
     const importRegex = /import\s+.*?from\s+['"](.+?)['"]/g;
-    let match;
-    while ((match = importRegex.exec(code)) !== null) {
+    for (const match of code.matchAll(importRegex)) {
       dependencies.push(match[1]);
     }
   } else if (language === 'python') {
     const importRegex = /(?:from|import)\s+([^\s]+)/g;
-    let match;
-    while ((match = importRegex.exec(code)) !== null) {
+    for (const match of code.matchAll(importRegex)) {
       dependencies.push(match[1]);
     }
   } else if (language === 'java') {
     const importRegex = /import\s+([^;]+);/g;
-    let match;
-    while ((match = importRegex.exec(code)) !== null) {
+    for (const match of code.matchAll(importRegex)) {
       dependencies.push(match[1]);
     }
   }
@@ -183,11 +202,11 @@ function extractFileMetadata(code: string, language: string, filePath: string): 
 
   return {
     description: description.substring(0, 100), // Limit description length
-    dependencies: dependencies.slice(0, 5)      // Limit to most important dependencies
+    dependencies: dependencies.slice(0, 5), // Limit to most important dependencies
   };
 }
 
-function analyzeFileStructure(code: string, language: string): FileStructure {
+function analyzeFileStructure(code: string, _language: string): FileStructure {
   // This is a simplified placeholder for what would be a complex AST parsing
 
   const components: Component[] = [];
@@ -210,7 +229,7 @@ function analyzeFileStructure(code: string, language: string): FileStructure {
         name: interfaceName,
         visibility: isExported ? 'public' : 'private',
         description: `Interface ${interfaceName}`,
-        subComponents: []
+        subComponents: [],
       };
 
       components.push(component);
@@ -224,12 +243,15 @@ function analyzeFileStructure(code: string, language: string): FileStructure {
   if (classMatch) {
     for (const match of classMatch) {
       const className = match.replace('class ', '');
-      const isExported = code.includes(`export class ${className}`) ||
-                         code.includes(`export default class ${className}`);
+      const isExported =
+        code.includes(`export class ${className}`) || code.includes(`export default class ${className}`);
 
       // Check for class inheritance
       const extendsMatch = new RegExp(`class\\s+${className}\\s+extends\\s+(\\w+)`, 'g').exec(code);
-      const implementsMatch = new RegExp(`class\\s+${className}(?:\\s+extends\\s+\\w+)?\\s+implements\\s+([^{]+)`, 'g').exec(code);
+      const implementsMatch = new RegExp(
+        `class\\s+${className}(?:\\s+extends\\s+\\w+)?\\s+implements\\s+([^{]+)`,
+        'g',
+      ).exec(code);
 
       const component: Component = {
         type: 'class',
@@ -239,12 +261,12 @@ function analyzeFileStructure(code: string, language: string): FileStructure {
         subComponents: [],
       };
 
-      if (extendsMatch && extendsMatch[1]) {
+      if (extendsMatch?.[1]) {
         component.extends = extendsMatch[1].trim();
       }
 
-      if (implementsMatch && implementsMatch[1]) {
-        component.implementations = implementsMatch[1].split(',').map(impl => impl.trim());
+      if (implementsMatch?.[1]) {
+        component.implementations = implementsMatch[1].split(',').map((impl) => impl.trim());
       }
 
       // Detect class properties and methods more accurately
@@ -268,12 +290,10 @@ function analyzeFileStructure(code: string, language: string): FileStructure {
           // Find properties (using a more precise approach)
           // Match class property declaration patterns like:
           // private tasks: Map<string, Task>;
-          const propertyRegex = /^\s*(private|public|protected)?\s+(readonly\s+)?(static\s+)?([a-zA-Z_][a-zA-Z0-9_]*)\s*:\s*([^;=\n]+)/gm;
-          let propertyMatch;
-
-          while ((propertyMatch = propertyRegex.exec(classBody)) !== null) {
+          const propertyRegex =
+            /^\s*(private|public|protected)?\s+(readonly\s+)?(static\s+)?([a-zA-Z_][a-zA-Z0-9_]*)\s*:\s*([^;=\n]+)/gm;
+          for (const propertyMatch of classBody.matchAll(propertyRegex)) {
             const visibility = propertyMatch[1] || 'public';
-            const isReadonly = !!propertyMatch[2];
             const isStatic = !!propertyMatch[3];
             const propertyName = propertyMatch[4];
             const propertyType = propertyMatch[5]?.trim();
@@ -283,8 +303,11 @@ function analyzeFileStructure(code: string, language: string): FileStructure {
             const methodBracesBeforeMatch = classBody.substring(0, propertyMatch.index).match(/{/g);
             const methodBracesClosedBeforeMatch = classBody.substring(0, propertyMatch.index).match(/}/g);
 
-            if (methodBracesBeforeMatch && methodBracesClosedBeforeMatch &&
-                methodBracesBeforeMatch.length > methodBracesClosedBeforeMatch.length) {
+            if (
+              methodBracesBeforeMatch &&
+              methodBracesClosedBeforeMatch &&
+              methodBracesBeforeMatch.length > methodBracesClosedBeforeMatch.length
+            ) {
               continue; // Skip - this is inside a method body
             }
 
@@ -293,17 +316,16 @@ function analyzeFileStructure(code: string, language: string): FileStructure {
               name: propertyName,
               visibility: visibility as 'public' | 'private' | 'protected',
               description: isStatic ? `Static property ${propertyName}` : `Property ${propertyName}`,
-              returnType: propertyType
+              returnType: propertyType,
             });
           }
 
           // Find methods (using a more precise approach)
           // Match class method declaration patterns like:
           // public async createTask(name: string): Promise<Task> {
-          const methodRegex = /^\s*(private|public|protected)?\s+(static\s+)?(async\s+)?([a-zA-Z_][a-zA-Z0-9_]*)\s*\(\s*([^)]*)\s*\)(?:\s*:\s*([^{;]+))?/gm;
-          let methodMatch;
-
-          while ((methodMatch = methodRegex.exec(classBody)) !== null) {
+          const methodRegex =
+            /^\s*(private|public|protected)?\s+(static\s+)?(async\s+)?([a-zA-Z_][a-zA-Z0-9_]*)\s*\(\s*([^)]*)\s*\)(?:\s*:\s*([^{;]+))?/gm;
+          for (const methodMatch of classBody.matchAll(methodRegex)) {
             const visibility = methodMatch[1] || 'public';
             const isStatic = !!methodMatch[2];
             const isAsync = !!methodMatch[3];
@@ -318,17 +340,21 @@ function analyzeFileStructure(code: string, language: string): FileStructure {
             const methodBracesBeforeMatch = classBody.substring(0, methodMatch.index).match(/{/g);
             const methodBracesClosedBeforeMatch = classBody.substring(0, methodMatch.index).match(/}/g);
 
-            if (methodBracesBeforeMatch && methodBracesClosedBeforeMatch &&
-                methodBracesBeforeMatch.length > methodBracesClosedBeforeMatch.length) {
+            if (
+              methodBracesBeforeMatch &&
+              methodBracesClosedBeforeMatch &&
+              methodBracesBeforeMatch.length > methodBracesClosedBeforeMatch.length
+            ) {
               continue; // Skip - this is inside a method body
             }
 
-            const paramsList = params.split(',')
-              .map(param => param.trim())
-              .filter(param => param) // Remove empty strings
-              .map(param => {
+            const paramsList = params
+              .split(',')
+              .map((param) => param.trim())
+              .filter((param) => param) // Remove empty strings
+              .map((param) => {
                 // Extract parameter name and type if available
-                const [paramName, paramType] = param.split(':').map(p => p.trim());
+                const [paramName, paramType] = param.split(':').map((p) => p.trim());
                 return paramType ? `${paramName}:${paramType}` : paramName;
               });
 
@@ -354,7 +380,7 @@ function analyzeFileStructure(code: string, language: string): FileStructure {
                 visibility: visibility as 'public' | 'private' | 'protected',
                 description: isStatic ? `Static method ${methodName}` : `Method ${methodName}`,
                 parameters: paramsList.length > 0 ? paramsList : undefined,
-                returnType: returnType || undefined
+                returnType: returnType || undefined,
               };
 
               // Detect flow patterns
@@ -395,30 +421,34 @@ function analyzeFileStructure(code: string, language: string): FileStructure {
   if (functionMatch) {
     for (const match of functionMatch) {
       const functionName = match.replace('function ', '');
-      const isExported = code.includes(`export function ${functionName}`) ||
-                        code.includes(`export default function ${functionName}`);
+      const isExported =
+        code.includes(`export function ${functionName}`) || code.includes(`export default function ${functionName}`);
 
       // Extract function details
-      const funcRegex = new RegExp(`(?:export\\s+)?(?:async\\s+)?function\\s+${functionName}\\s*\\(([^)]*)\\)(?:\\s*:\\s*([^{]+))?`, 'g');
+      const funcRegex = new RegExp(
+        `(?:export\\s+)?(?:async\\s+)?function\\s+${functionName}\\s*\\(([^)]*)\\)(?:\\s*:\\s*([^{]+))?`,
+        'g',
+      );
       const funcMatch = funcRegex.exec(code);
 
       const component: Component = {
         type: 'function',
         name: functionName,
         visibility: isExported ? 'public' : 'private',
-        description: `Function ${functionName}`
+        description: `Function ${functionName}`,
       };
 
       if (funcMatch) {
         // Extract parameters
         const params = funcMatch[1];
         if (params) {
-          component.parameters = params.split(',')
-            .map(param => param.trim())
-            .filter(param => param) // Remove empty strings
-            .map(param => {
+          component.parameters = params
+            .split(',')
+            .map((param) => param.trim())
+            .filter((param) => param) // Remove empty strings
+            .map((param) => {
               // Extract parameter name and type if available
-              const [paramName, paramType] = param.split(':').map(p => p.trim());
+              const [paramName, paramType] = param.split(':').map((p) => p.trim());
               return paramType ? `${paramName}:${paramType}` : paramName;
             });
         }
@@ -449,7 +479,11 @@ function analyzeFileStructure(code: string, language: string): FileStructure {
             component.flows = ['conditional'];
           } else if (functionBody.includes('switch') && functionBody.includes('case')) {
             component.flows = ['switch-case'];
-          } else if (functionBody.includes('for') || functionBody.includes('while') || functionBody.includes('forEach')) {
+          } else if (
+            functionBody.includes('for') ||
+            functionBody.includes('while') ||
+            functionBody.includes('forEach')
+          ) {
             component.flows = ['iteration'];
           }
         }
@@ -463,7 +497,12 @@ function analyzeFileStructure(code: string, language: string): FileStructure {
   }
 
   // Detect common patterns (simplified)
-  if (code.includes('.subscribe(') || code.includes('addEventListener(') || code.includes('.on(') || code.includes('EventEmitter')) {
+  if (
+    code.includes('.subscribe(') ||
+    code.includes('addEventListener(') ||
+    code.includes('.on(') ||
+    code.includes('EventEmitter')
+  ) {
     patterns.push('Observer pattern for events');
   }
 
@@ -490,7 +529,7 @@ function analyzeFileStructure(code: string, language: string): FileStructure {
   return {
     exports,
     components,
-    patterns
+    patterns,
   };
 }
 
@@ -498,13 +537,11 @@ function generateComponentRepresentation(component: Component): string {
   let result = '';
 
   // Visibility indicator
-  const visPrefix = component.visibility === 'public' ? '+' :
-                    component.visibility === 'private' ? '-' : '#';
+  const visPrefix = component.visibility === 'public' ? '+' : component.visibility === 'private' ? '-' : '#';
 
   // Component type abbreviation
-  const typePrefix = component.type === 'class' ? 'C' :
-                     component.type === 'interface' ? 'I' :
-                     component.type === 'function' ? 'F' : 'V';
+  const typePrefix =
+    component.type === 'class' ? 'C' : component.type === 'interface' ? 'I' : component.type === 'function' ? 'F' : 'V';
 
   result += `${typePrefix}${visPrefix} ${component.name}`;
 
