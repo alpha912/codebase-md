@@ -1,3 +1,12 @@
+// SPDX-FileCopyrightText: 2024-2026 Alphin Tom
+//
+// SPDX-License-Identifier: MIT
+
+// File: src/formatters.ts
+// What: Renders an export document as Markdown, XML or plain text, including the folder tree and statistics.
+// Why: Output must stay well-formed whatever the source contains: fences cannot be closed early and XML is always escaped.
+// Related: exporter.ts, types.ts
+
 import type { ExportDocument, OutputFormat } from './types';
 
 export function xmlEscape(text: string): string {

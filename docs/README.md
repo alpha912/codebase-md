@@ -1,27 +1,34 @@
 # CodebaseMD Documentation
 
-<p align="center">
-  <img src="../assets/logo.png" alt="CodebaseMD Logo" width="100" height="100">
-</p>
+CodebaseMD exports a workspace, a selection or your Git changes as one
+Markdown, XML or plain-text document. Start with the
+[project README](../README.md) for an overview and a short example.
 
-Welcome to CodebaseMD 3.0: export code context as Markdown, XML or text to a file, clipboard or editor. Start with the [Export Wizard and settings](../README.md#whats-new-in-version-300), or read the [v3 release notes](../releases/RELEASE-NOTES-3.0.0.md).
+## Using the extension
 
-## Table of Contents
+| Page | Contents |
+| --- | --- |
+| [Installation](installation.md) | Installing from GitHub Releases or the Marketplace, and verifying it works |
+| [Usage](usage.md) | The Export Wizard, Git Changes, Copy Current File and the original commands |
+| [Configuration](configuration.md) | Settings, `.codebaseignore`, exclusions and limits |
+| [Micro export format](micro-export-format.md) | The compact summary notation and how to read it |
+| [Troubleshooting](troubleshooting.md) | Common problems and their fixes |
 
-1. [Installation](./installation.md)
-2. [Usage](./usage.md)
-3. [Configuration](./configuration.md)
-4. [API Reference](./api-reference.md)
-5. [Contributing](./contributing.md)
-6. [Changelog](./changelog.md)
-7. [Troubleshooting](./troubleshooting.md)
-8. [Micro Export Format](https://github.com/alpha912/codebase-md/blob/main/docs/micro-export-format.md)
-9. [v3 Plan and Research](https://github.com/alpha912/codebase-md/blob/main/docs/v3-plan.md)
+## Working on the extension
 
-For the main project README, please refer to the [README.md](../README.md) in the root directory.
+| Page | Contents |
+| --- | --- |
+| [Architecture](architecture.md) | The export pipeline, module boundaries and safety properties |
+| [Developer reference](api-reference.md) | Modules, command IDs and the `exportCodebase` contract |
+| [Contributing](../CONTRIBUTING.md) | Setup, checks, pull requests and releases |
+| [Agent instructions](../AGENTS.md) | A short guide for coding agents |
+| [v3 plan and research](v3-plan.md) | The research and plan behind version 3.0 (historical) |
 
----
+## Project
 
-<p align="center">
-  <img src="../assets/logo-with-text.png" alt="CodebaseMD" width="400">
-</p>
+| Page | Contents |
+| --- | --- |
+| [Changelog](../CHANGELOG.md) | Changes in each version |
+| [Release notes](../releases/) | Longer notes per release |
+| [Security policy](../SECURITY.md) | Reporting vulnerabilities; what is in scope |
+| [Support](../SUPPORT.md) | Where to ask questions and report problems |

@@ -1,34 +1,54 @@
 # Installation
 
-There are two ways to install the CodebaseMD extension for Visual Studio Code:
+CodebaseMD needs VS Code and a local folder to export. Git is needed only for
+Git exports.
 
-For v3.0.0, install the VSIX from GitHub Releases. Marketplace publishing is separate and its version may differ. The extension supports VS Code 1.146+ and local filesystem workspaces.
+| Release | Requires |
+| --- | --- |
+| 3.0.0 (current) | VS Code 1.70 or later |
+| Next release (unreleased, on `main`) | VS Code 1.146 or later |
 
-## 1. From Visual Studio Marketplace
+## From GitHub Releases
 
-1. Open Visual Studio Code
-2. Go to the Extensions view by clicking on the square icon in the left sidebar or pressing `Ctrl+Shift+X` (Windows/Linux) or `Cmd+Shift+X` (macOS)
-3. Search for "CodebaseMD"
-4. Click on the "Install" button next to the CodebaseMD extension
+This is the recommended way to get the newest version.
 
-## 2. Manual Installation via VSIX
+1. Download `codebase-md-<version>.vsix` from the
+   [latest release](https://github.com/alpha912/codebase-md/releases/latest).
+2. Optionally verify it against the `.sha256` file published next to it:
 
-1. Download the latest `.vsix` file from the [releases section](https://github.com/alpha912/codebase-md/releases) of the GitHub repository
-2. Open Visual Studio Code
-3. Go to the Extensions view
-4. Click on the "..." (More Actions) button in the top-right corner of the Extensions view
-5. Select "Install from VSIX..."
-6. Navigate to the downloaded `.vsix` file and select it
-7. Click "Install"
+   ```sh
+   sha256sum -c codebase-md-<version>.vsix.sha256
+   ```
 
-After installation, you may need to reload Visual Studio Code for the extension to activate.
+3. In VS Code, open the Extensions view (`Ctrl+Shift+X`, or `Cmd+Shift+X` on
+   macOS), choose **… → Install from VSIX…** and select the file.
 
-## Verifying Installation
+You can also install from a terminal:
 
-To verify that CodebaseMD has been installed correctly:
+```sh
+code --install-extension codebase-md-<version>.vsix
+```
 
-1. Open the Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P`)
-2. Type "CodebaseMD"
-3. Run **CodebaseMD: Export Wizard**. The original Markdown and Micro commands are also available.
+## From the Visual Studio Marketplace
 
-If you encounter any issues during installation, please refer to the [Troubleshooting](./troubleshooting.md) guide or [open an issue](https://github.com/alpha912/codebase-md/issues) on GitHub.
+Search for **CodebaseMD** in the Extensions view and choose **Install**, or
+open the
+[Marketplace page](https://marketplace.visualstudio.com/items?itemName=alpha912.codebase-md).
+Marketplace publication is a separate step from a GitHub release, so the
+version there can be older.
+
+## Verifying the installation
+
+1. Open a local folder.
+2. Open the Command Palette (`Ctrl+Shift+P`, or `Cmd+Shift+P` on macOS) and
+   type "CodebaseMD".
+3. Run **CodebaseMD: Export Wizard** and choose *Workspace → Full → Markdown →
+   Editor*. A new tab opens with the export.
+
+If the commands are missing, see [troubleshooting](troubleshooting.md).
+
+## Updating and removing
+
+Install a newer VSIX over the existing one to update. To remove the extension,
+choose **Uninstall** on its page in the Extensions view. CodebaseMD stores no
+data outside your VS Code settings.

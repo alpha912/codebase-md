@@ -1,0 +1,15 @@
+# SPDX-FileCopyrightText: 2024-2026 Alphin Tom
+#
+# SPDX-License-Identifier: MIT
+
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/alpha912/codebase-md/security/advisories/new
+    about: Do not open an issue. Report privately as described in SECURITY.md.
+  - name: Questions and ideas
+    url: https://github.com/alpha912/codebase-md/discussions
+    about: Ask how to do something or share how you use CodebaseMD.
+  - name: Troubleshooting guide
+    url: https://github.com/alpha912/codebase-md/blob/main/docs/troubleshooting.md
+    about: Common problems and their fixes.

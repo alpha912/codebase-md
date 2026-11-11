@@ -1,3 +1,12 @@
+// SPDX-FileCopyrightText: 2024-2026 Alphin Tom
+//
+// SPDX-License-Identifier: MIT
+
+// File: src/test/unit/exporter.test.ts
+// What: Unit tests for the export pipeline against temporary directories and Git repositories.
+// Why: The pipeline's filtering, redaction and Git behaviour are the product; they are tested without VS Code.
+// Related: ../../exporter.ts
+
 import * as assert from 'node:assert';
 import { execFileSync } from 'node:child_process';
 import * as fs from 'node:fs';

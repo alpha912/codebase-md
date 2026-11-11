@@ -1,0 +1,18 @@
+# SPDX-FileCopyrightText: 2024-2026 Alphin Tom
+#
+# SPDX-License-Identifier: MIT
+
+# Code owners: review is requested from these people on pull requests that
+# touch the matching paths.
+
+*                 @alpha912
+
+/src/             @alpha912
+/scripts/         @alpha912
+/.github/         @alpha912
+/package.json     @alpha912
+/bun.lock         @alpha912
+/LICENSE.md       @alpha912
+/LICENSES/        @alpha912
+/REUSE.toml       @alpha912
+/SECURITY.md      @alpha912

@@ -1,0 +1,35 @@
+# SPDX-FileCopyrightText: 2024-2026 Alphin Tom
+#
+# SPDX-License-Identifier: MIT
+
+name: Feature request
+description: Suggest a new capability or a change in behaviour
+title: "[Feature]: "
+labels: ["enhancement", "triage"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What are you trying to do, and what gets in the way today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you would like
+      description: Describe the behaviour you want. A sketch of the command, setting or output is welcome.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you considered
+  - type: checkboxes
+    id: constraints
+    attributes:
+      label: Fit with the project
+      description: CodebaseMD runs locally and makes no network requests.
+      options:
+        - label: This works without sending code to a service
+        - label: I am willing to help implement or test it

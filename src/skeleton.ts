@@ -1,3 +1,12 @@
+// SPDX-FileCopyrightText: 2024-2026 Alphin Tom
+//
+// SPDX-License-Identifier: MIT
+
+// File: src/skeleton.ts
+// What: Skeleton mode: keeps import and declaration lines and drops bodies.
+// Why: A cheaper, language-agnostic alternative to Micro for fitting more files into a context budget.
+// Related: exporter.ts
+
 /** Best-effort outline. This deliberately does not claim to be a language parser. */
 export function skeleton(code: string, language: string): string {
   const lines = code.split(/\r?\n/);

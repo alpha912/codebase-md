@@ -1,3 +1,12 @@
+// SPDX-FileCopyrightText: 2024-2026 Alphin Tom
+//
+// SPDX-License-Identifier: MIT
+
+// File: src/test/suite/index.ts
+// What: Mocha entry point loaded by the extension host; discovers every compiled `*.test.js`.
+// Why: The host needs a single module that runs the tests and reports failures.
+// Related: ../runTest.ts
+
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 

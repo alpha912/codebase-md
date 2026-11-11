@@ -2,15 +2,26 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+Longer notes for each release are in [`releases/`](releases/).
 
 ## [Unreleased]
 
 ### Changed
-- Minimum supported VS Code is now 1.146 (previously 1.70).
-- Development tooling: TypeScript 7, Bun for installs and scripts (`bun.lock` replaces `package-lock.json`), and Biome for linting and formatting.
+- **BREAKING:** the minimum supported VS Code is now 1.146 (previously 1.70). Stay on 3.0.0 if you use an older VS Code or a fork based on one.
+- The VSIX is smaller: it ships a 256 px icon and no longer bundles the documentation, release notes, banner and full-size logos.
+- Development tooling: TypeScript 7 with stricter compiler checks, Bun for installs and scripts (`bun.lock` replaces `package-lock.json`), and Biome for linting and formatting.
 - Dependency updates, including `ignore` 7.
+- The changelog moved from `docs/changelog.md` to `CHANGELOG.md`.
+
+### Fixed
+- Micro summaries no longer keep a stray `*` in the description taken from a `/** … */` comment.
+
+### Added
+- Documentation: rewritten README, an architecture guide, a security policy, support and agent guides, and issue and pull request templates.
+- REUSE licensing metadata: SPDX headers on source files, `REUSE.toml` and `LICENSES/`, checked in CI.
+- More unit tests for language mapping, the Micro representation, path containment and formatting helpers.
 
 ## [3.0.0] - 2026-09-18
 
@@ -24,7 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Modular production code and tests that import it, with extension-host command checks.
 - Existing commands retain Markdown-to-file behavior and the established Micro format.
 
-See [release notes](../releases/RELEASE-NOTES-3.0.0.md) for compatibility and limitations.
+See [release notes](releases/RELEASE-NOTES-3.0.0.md) for compatibility and limitations.
 
 ## [2.0.3] - 2025-05-22
 

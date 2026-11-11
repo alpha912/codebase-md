@@ -1,3 +1,12 @@
+// SPDX-FileCopyrightText: 2024-2026 Alphin Tom
+//
+// SPDX-License-Identifier: MIT
+
+// File: src/fsUtils.ts
+// What: Ignore rules, workspace containment checks and the directory walk that selects files for an export.
+// Why: Decides what leaves the workspace: nothing outside the root, nothing excluded, no symbolic links or junctions followed.
+// Related: exporter.ts
+
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import ignore, { type Ignore } from 'ignore';

@@ -1,3 +1,12 @@
+// SPDX-FileCopyrightText: 2024-2026 Alphin Tom
+//
+// SPDX-License-Identifier: MIT
+
+// File: src/exporter.ts
+// What: The export pipeline: collect files, read them, redact, transform (full, Micro or skeleton), and render one document.
+// Why: Keeps the whole export pure of VS Code APIs so unit tests can run it against temporary directories.
+// Related: fsUtils.ts, git.ts, secrets.ts, formatters.ts
+
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { condenseMicroCode, getLanguageForSpecialFile, getLanguageFromExtension } from './analyzer';

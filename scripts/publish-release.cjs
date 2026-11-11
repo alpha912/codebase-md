@@ -1,3 +1,12 @@
+// SPDX-FileCopyrightText: 2024-2026 Alphin Tom
+//
+// SPDX-License-Identifier: MIT
+
+// File: scripts/publish-release.cjs
+// What: Creates the GitHub release for the version in package.json and attaches the VSIX and its SHA-256 checksum.
+// Why: Releases are published by CI from a verified commit, never by hand, and never overwrite an existing tag.
+// Related: .github/workflows/ci.yml, releases/RELEASE-NOTES-<version>.md
+
 // Run after successful checks and packaging. Never overwrite a published release.
 const fs = require('node:fs');
 const crypto = require('node:crypto');

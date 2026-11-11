@@ -1,3 +1,12 @@
+// SPDX-FileCopyrightText: 2024-2026 Alphin Tom
+//
+// SPDX-License-Identifier: MIT
+
+// File: src/secrets.ts
+// What: Heuristic secret redaction that returns sanitized text and a count, never the matched values.
+// Why: Exports are meant to be pasted into other tools; recognizable credentials should not travel with them.
+// Related: exporter.ts
+
 export interface RedactionResult {
   text: string;
   count: number;

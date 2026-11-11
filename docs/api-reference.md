@@ -1,6 +1,6 @@
-# Developer API Reference
+# Developer Reference
 
-CodebaseMD does not expose a stable external programmatic API. Its production modules are independently testable:
+CodebaseMD does not expose a stable external programmatic API. Its production modules are independently testable; [architecture](architecture.md) describes how they fit together:
 
 | Module | Responsibility |
 | --- | --- |

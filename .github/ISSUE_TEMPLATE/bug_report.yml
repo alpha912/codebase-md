@@ -1,0 +1,77 @@
+# SPDX-FileCopyrightText: 2024-2026 Alphin Tom
+#
+# SPDX-License-Identifier: MIT
+
+name: Bug report
+description: An export is wrong, incomplete or fails
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. A minimal, sanitized example is the most useful thing you can include.
+        Never paste private code or real credentials. Security issues go through SECURITY.md, not here.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Export Wizard
+        - Export Git Changes
+        - Copy Current File
+        - Original Markdown / Micro commands
+        - File selection and ignore rules
+        - Secret redaction
+        - Output format (Markdown, XML, text)
+        - Micro or skeleton mode
+        - Token estimate or budget warning
+        - Installation or activation
+        - Documentation
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Extension version
+      description: Shown on the extension's page in VS Code.
+      placeholder: "3.0.0"
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: VS Code version (Help → About) and operating system.
+      placeholder: "VS Code 1.146.0, Windows 11"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: The command you ran, the options you chose and any relevant settings or ignore files.
+      placeholder: |
+        1. Open a folder containing …
+        2. Run "CodebaseMD: Export Wizard" → Workspace → Full → Markdown → Clipboard
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: Minimal example
+      description: The smallest file or folder layout that shows the problem, with any secrets replaced by fake values.
+      render: text
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened instead
+      description: Include the text of any notification. Screenshots help.
+    validations:
+      required: true

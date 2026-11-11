@@ -1,3 +1,12 @@
+// SPDX-FileCopyrightText: 2024-2026 Alphin Tom
+//
+// SPDX-License-Identifier: MIT
+
+// File: src/config.ts
+// What: Reads the `codebaseMD.*` settings for a workspace folder and replaces invalid values with defaults.
+// Why: Settings are user input; the exporter must never see an out-of-range or mistyped option.
+// Related: types.ts, extension.ts
+
 import * as vscode from 'vscode';
 import { defaults, type ExportOptions } from './types';
 
