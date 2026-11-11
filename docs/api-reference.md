@@ -20,4 +20,4 @@ CodebaseMD does not expose a stable external programmatic API. Its production mo
 
 The original command IDs remain `codebaseMD.exportAll`, `codebaseMD.exportSelected`, `codebaseMD.exportMicro` and `codebaseMD.exportMicroSelected`. New commands are `codebaseMD.exportWizard`, `codebaseMD.exportGitChanges` and `codebaseMD.copyCurrentFile`. Selected commands accept a resource URI and an optional array of selected URIs.
 
-Run `npm test` for production module tests and `npm run test:integration` for extension-host command checks. Build outputs belong in `out/`.
+Run `bun run test` for production module tests and `bun run test:integration` for extension-host command checks. Build outputs belong in `out/`.

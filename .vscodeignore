@@ -11,3 +11,5 @@ integration-test.log
 .github/**
 scripts/**
 *.sha256
+biome.json
+bun.lock

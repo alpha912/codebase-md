@@ -15,9 +15,17 @@ export interface ExportOptions {
   customHeader: string;
 }
 export const defaults: ExportOptions = {
-  format: 'markdown', contentMode: 'full', target: 'file', tokenBudget: 32000,
-  redactSecrets: true, maxFileSizeKB: 1024, exclude: [], respectGitignore: true,
-  includeDiff: false, lineNumbers: false, customHeader: ''
+  format: 'markdown',
+  contentMode: 'full',
+  target: 'file',
+  tokenBudget: 32000,
+  redactSecrets: true,
+  maxFileSizeKB: 1024,
+  exclude: [],
+  respectGitignore: true,
+  includeDiff: false,
+  lineNumbers: false,
+  customHeader: '',
 };
 export interface ExportFile {
   path: string;
@@ -40,8 +48,12 @@ export interface ExportHooks {
   readText?: (absolutePath: string) => Promise<string | undefined>;
 }
 export class ExportCancelled extends Error {
-  constructor() { super('Export cancelled.'); }
+  constructor() {
+    super('Export cancelled.');
+  }
 }
 export function checkCancelled(hooks: ExportHooks): void {
-  if (hooks.cancelled?.()) { throw new ExportCancelled(); }
+  if (hooks.cancelled?.()) {
+    throw new ExportCancelled();
+  }
 }

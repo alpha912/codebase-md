@@ -25,17 +25,21 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
         with:
           node-version: 24
-          cache: npm
-      - run: npm ci
-      - run: npm test
+          package-manager-cache: false
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        with:
+          bun-version: 1.4.3
+      - run: bun install --frozen-lockfile
+      - run: bun run lint
+      - run: bun run test
       - name: Extension host (Linux)
         if: runner.os == 'Linux'
-        run: xvfb-run -a npm run test:integration
+        run: xvfb-run -a bun run test:integration
       - name: Extension host (Windows)
         if: runner.os == 'Windows'
-        run: npm run test:integration
-      - run: npm audit --audit-level=low
-      - run: npm run package
+        run: bun run test:integration
+      - run: bun audit --audit-level=low
+      - run: bun run package
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         with:
           name: vsix-${{ matrix.os }}
@@ -58,8 +62,11 @@ jobs:
         with:
           node-version: 24
           package-manager-cache: false
-      - run: npm ci
-      - run: npm run package
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        with:
+          bun-version: 1.4.3
+      - run: bun install --frozen-lockfile
+      - run: bun run package
       - name: Create draft, attach assets, and publish
         env:
           GH_TOKEN: ${{ github.token }}

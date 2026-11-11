@@ -33,24 +33,25 @@ git checkout -b feature/my-new-feature
 
 ### 5. Compile and Test Your Changes
 
-Use Node.js 22.12+ (Node 24 recommended) and Git. Install dependencies and compile the TypeScript sources:
+Use [Bun](https://bun.sh) 1.4+, Node.js 22.12+ (Node 24 recommended) and Git. Bun installs dependencies and runs scripts; Node is still needed for packaging and the extension-host tests. Install dependencies and compile the TypeScript sources:
 
 ```
-npm ci
-npm run compile
+bun install --frozen-lockfile
+bun run compile
 ```
 
-If you made significant changes, also run tests to ensure everything works correctly:
+If you made significant changes, also run the linter and tests to ensure everything works correctly:
 
 ```
-npm test
+bun run lint
+bun run test
 ```
 
-Unit tests exercise production modules and use temporary Git repositories (Git must be installed). Run `npm run test:integration` for VS Code extension-host tests and `npm run package` to build a VSIX. Compiled output lives in `out/`; do not add generated JavaScript under `src/`.
+Unit tests exercise production modules and use temporary Git repositories (Git must be installed). Run `bun run test:integration` for VS Code extension-host tests and `bun run package` to build a VSIX. Formatting and linting use Biome (`bun run lint:fix` applies fixes). Compiled output lives in `out/`; do not add generated JavaScript under `src/`.
 
 ### Release maintainers
 
-Update `package.json`, the lockfile, changelog, README and `releases/RELEASE-NOTES-<version>.md`. A commit on `main` whose message starts with `release:` triggers publication **only after both Windows and Linux CI jobs pass**. The release job packages the verified commit, creates a draft with the VSIX and SHA-256 checksum, and publishes it as the latest GitHub release. Ordinary commits and pull requests cannot publish. Existing release tags are not overwritten. Marketplace publication remains a separate explicit action.
+Update `package.json`, `bun.lock`, changelog, README and `releases/RELEASE-NOTES-<version>.md`. A commit on `main` whose message starts with `release:` triggers publication **only after both Windows and Linux CI jobs pass**. The release job packages the verified commit, creates a draft with the VSIX and SHA-256 checksum, and publishes it as the latest GitHub release. Ordinary commits and pull requests cannot publish. Existing release tags are not overwritten. Marketplace publication remains a separate explicit action.
 
 ### 6. Commit Your Changes
 

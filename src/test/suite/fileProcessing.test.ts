@@ -1,5 +1,6 @@
-import * as assert from 'assert';
+import * as assert from 'node:assert';
 import { isSupportedFile } from '../../exporter';
+
 suite('File processing integration', () => {
   test('uses production support rules', () => {
     assert.ok(isSupportedFile('Dockerfile'));

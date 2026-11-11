@@ -20,7 +20,7 @@ CodebaseMD runs locally. It does not upload your source code or call an AI provi
 3. Open a local workspace and run **CodebaseMD: Export Wizard** from the Command Palette.
 4. Choose your scope, content mode, output format, and destination.
 
-The Marketplace has its own publication schedule; use the GitHub VSIX for this release. VS Code 1.70 or later is required. Git is needed only for Git exports.
+The Marketplace has its own publication schedule; use the GitHub VSIX for this release. VS Code 1.146 or later is required. Git is needed only for Git exports.
 
 ## What's new in version 3.0.0
 
@@ -94,16 +94,17 @@ These rules also apply to explicit selections. See [configuration examples](docs
 
 ## Development
 
-Use Node.js 22.12+ (Node 24 recommended) and Git:
+Use [Bun](https://bun.sh) 1.4+, Node.js 22.12+ (Node 24 recommended) and Git:
 
 ```sh
-npm ci
-npm test
-npm run test:integration
-npm run package
+bun install --frozen-lockfile
+bun run lint
+bun run test
+bun run test:integration
+bun run package
 ```
 
-Unit tests import production modules and create temporary Git repositories. Integration tests launch a VS Code host and verify commands, clipboard output, and unsaved content. Linux integration tests require a display (`xvfb-run -a npm run test:integration` in CI). The CI workflow tests Windows and Linux and retains the built VSIX as an artifact.
+Unit tests import production modules and create temporary Git repositories. Integration tests launch a VS Code host and verify commands, clipboard output, and unsaved content. Linux integration tests require a display (`xvfb-run -a bun run test:integration` in CI). The CI workflow tests Windows and Linux and retains the built VSIX as an artifact.
 
 See [contributing](CONTRIBUTING.md), the [developer module reference](docs/api-reference.md), and the [research and implementation plan](docs/v3-plan.md). The separate [web prototype](CodebaseMD-Web/README.md) is not part of this extension release.
 
