@@ -1,3 +1,12 @@
+// SPDX-FileCopyrightText: 2024-2026 Alphin Tom
+//
+// SPDX-License-Identifier: MIT
+
+// File: src/analyzer.ts
+// What: Language mapping and the Micro representation: a regex-based summary of a file's path, dependencies, exports and members.
+// Why: Micro is the established compact format from 2.x; it is heuristic and intentionally not a language parser.
+// Related: exporter.ts, docs/micro-export-format.md
+
 import * as path from 'node:path';
 
 export function condenseMicroCode(code: string, fileName: string, filePath: string): string {
@@ -190,7 +199,7 @@ function extractFileMetadata(code: string, language: string, _filePath: string):
   for (let i = 0; i < Math.min(10, lines.length); i++) {
     const line = lines[i].trim();
     if (line.startsWith('//') || line.startsWith('/*') || line.startsWith('*')) {
-      const comment = line.replace(/^\/\/|^\/\*|\*\/$|\*$/g, '').trim();
+      const comment = line.replace(/^\/\/+|^\/\*+|^\*+(?!\/)|\*+\/$/g, '').trim();
       if (comment && !comment.startsWith('@') && description.length < 100) {
         description += (description ? ' ' : '') + comment;
       }

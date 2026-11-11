@@ -7,13 +7,16 @@
     "sourceMap": true,
     "rootDir": "src",
     "strict": true,
-    "noImplicitAny": true,
     "types": ["node", "vscode", "mocha"],
     "moduleResolution": "node16",
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true
   },
-  "exclude": ["node_modules", ".vscode-test", "test-file.ts", "test-*.js", "*.test.ts"]
+  "include": ["src"]
 }

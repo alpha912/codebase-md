@@ -26,7 +26,7 @@
     "url": "https://github.com/alpha912/codebase-md.git"
   },
   "license": "MIT",
-  "icon": "assets/logo.png",
+  "icon": "assets/icon.png",
   "contributes": {
     "commands": [
       {
@@ -168,6 +168,7 @@
   "scripts": {
     "vscode:prepublish": "tsc -p ./",
     "compile": "tsc -p ./",
+    "typecheck": "tsc -p ./ --noEmit",
     "watch": "tsc -watch -p ./",
     "test-compile": "tsc -p ./",
     "pretest": "bun run test-compile",
@@ -176,7 +177,8 @@
     "publish": "vsce publish",
     "test:integration": "bun run compile && node ./out/test/runTest.js",
     "lint": "biome check .",
-    "lint:fix": "biome check --write ."
+    "lint:fix": "biome check --write .",
+    "check": "bun run lint && bun run test"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.6.6",

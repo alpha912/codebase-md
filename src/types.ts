@@ -1,3 +1,12 @@
+// SPDX-FileCopyrightText: 2024-2026 Alphin Tom
+//
+// SPDX-License-Identifier: MIT
+
+// File: src/types.ts
+// What: Shared option, document and hook types, the default options and the cancellation contract.
+// Why: One definition of the export contract for the pipeline, the command layer and the tests.
+// Related: exporter.ts, config.ts
+
 export type OutputFormat = 'markdown' | 'xml' | 'text';
 export type ContentMode = 'full' | 'micro' | 'skeleton';
 export type ExportTarget = 'file' | 'clipboard' | 'editor';

@@ -9,6 +9,12 @@ on:
 permissions:
   contents: read
 
+# A newer push to the same branch or pull request replaces the running check.
+# Runs on main are never cancelled, so a release is not interrupted.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
 jobs:
   test:
     name: Test (${{ matrix.os }})
@@ -46,9 +52,19 @@ jobs:
           path: '*.vsix'
           if-no-files-found: error
 
+  reuse:
+    name: REUSE licensing
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - run: pipx run reuse==6.3.0 lint
+
   release:
     name: Publish GitHub release
-    needs: test
+    needs: [test, reuse]
     if: github.event_name == 'push' && startsWith(github.event.head_commit.message, 'release:')
     runs-on: ubuntu-latest
     timeout-minutes: 10

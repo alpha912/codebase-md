@@ -1,3 +1,12 @@
+// SPDX-FileCopyrightText: 2024-2026 Alphin Tom
+//
+// SPDX-License-Identifier: MIT
+
+// File: src/test/runTest.ts
+// What: Launches a VS Code extension host and runs the integration suite inside it.
+// Why: Commands, clipboard output and unsaved-buffer handling can only be verified in a real host.
+// Related: suite/index.ts
+
 import * as fs from 'node:fs';
 import * as os from 'node:os';
 import * as path from 'node:path';

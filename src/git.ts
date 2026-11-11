@@ -1,3 +1,12 @@
+// SPDX-FileCopyrightText: 2024-2026 Alphin Tom
+//
+// SPDX-License-Identifier: MIT
+
+// File: src/git.ts
+// What: Finds files changed against HEAD (staged, unstaged, untracked, renamed, deleted) and produces filtered diffs.
+// Why: Git scope and diffs must work without external diff or textconv tools and in repositories without commits.
+// Related: exporter.ts
+
 import { execFile } from 'node:child_process';
 import * as path from 'node:path';
 import { checkCancelled, type ExportHooks } from './types';

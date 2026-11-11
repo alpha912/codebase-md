@@ -1,3 +1,12 @@
+// SPDX-FileCopyrightText: 2024-2026 Alphin Tom
+//
+// SPDX-License-Identifier: MIT
+
+// File: src/test/suite/extension.test.ts
+// What: Extension-host tests for activation and the current-file command.
+// Why: Covers behaviour that depends on VS Code itself.
+// Related: ../../extension.ts
+
 import * as assert from 'node:assert';
 import * as vscode from 'vscode';
 

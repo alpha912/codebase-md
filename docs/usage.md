@@ -33,7 +33,7 @@ Open a saved file in your workspace and run **CodebaseMD: Copy Current File**. I
 
 Exports contain file paths, a folder tree, language statistics, estimated content tokens, and the requested representation. Markdown also has a linked contents list. The completion notification and budget check use an estimate of the whole document, including formatting and diffs.
 
-Token counts, secret detection and condensed representations are heuristic. Consult [accuracy and scope](../README.md#accuracy-and-scope) and [Micro format details](micro-export-format.md). There is no fixed compression ratio.
+Token counts, secret detection and condensed representations are heuristic. Consult [limitations](../README.md#limitations) and [Micro format details](micro-export-format.md). There is no fixed compression ratio.
 
 ## Filtering and settings
 

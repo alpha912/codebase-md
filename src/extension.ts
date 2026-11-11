@@ -1,3 +1,12 @@
+// SPDX-FileCopyrightText: 2024-2026 Alphin Tom
+//
+// SPDX-License-Identifier: MIT
+
+// File: src/extension.ts
+// What: VS Code entry point: registers the commands, runs the Export Wizard, shows progress and the token-budget warning, and writes the result to a file, the clipboard or an editor.
+// Why: The only module that performs side effects in VS Code; everything it calls is testable without an extension host.
+// Related: exporter.ts, config.ts
+
 import * as vscode from 'vscode';
 import { readConfig } from './config';
 import { exportCodebase } from './exporter';

@@ -33,4 +33,4 @@ Use `codebaseMD.exclude` or `.gitignore` when paths should also be omitted. Root
 
 ## Limits
 
-Files above `maxFileSizeKB`, binary files and unsupported types receive omission notices. Symbolic links and junctions are skipped. Token estimates, redaction and skeleton extraction are heuristic; see [accuracy and scope](../README.md#accuracy-and-scope). No source edits or rebuilds are needed to change settings.
+Files above `maxFileSizeKB`, binary files and unsupported types receive omission notices. Symbolic links and junctions are skipped. Token estimates, redaction and skeleton extraction are heuristic; see [limitations](../README.md#limitations). No source edits or rebuilds are needed to change settings.

@@ -1,113 +1,302 @@
-# CodebaseMD
+<p align="center">
+  <img src="assets/banner.png" width="640" alt="CodebaseMD">
+</p>
 
-![CodebaseMD banner](assets/banner.png)
+<p align="center">
+  <b>CodebaseMD</b> is a VS Code extension that exports a workspace, a selection or your Git changes as one Markdown, XML or plain-text document, ready to paste into an AI assistant or a review.
+</p>
 
-[![GitHub release](https://img.shields.io/github/v/release/alpha912/codebase-md)](https://github.com/alpha912/codebase-md/releases/latest)
-[![CI](https://github.com/alpha912/codebase-md/actions/workflows/ci.yml/badge.svg)](https://github.com/alpha912/codebase-md/actions/workflows/ci.yml)
-[![Marketplace](https://img.shields.io/visual-studio-marketplace/v/alpha912.codebase-md)](https://marketplace.visualstudio.com/items?itemName=alpha912.codebase-md)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.md)
+<p align="center">
+  <a href="https://github.com/alpha912/codebase-md/releases/latest">Download</a> ·
+  <a href="docs/README.md">Documentation</a> ·
+  <a href="CHANGELOG.md">Changelog</a> ·
+  <a href="CONTRIBUTING.md">Contributing</a> ·
+  <a href="SECURITY.md">Security</a> ·
+  <a href="SUPPORT.md">Support</a>
+</p>
 
-**Prepare code context without leaving VS Code.** Export a workspace, selected files, or Git changes as Markdown, XML, or plain text. Save it, copy it, or open it in an editor.
+<p align="center">
+  <a href="https://github.com/alpha912/codebase-md/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/alpha912/codebase-md?color=2F80ED"></a>
+  <a href="https://github.com/alpha912/codebase-md/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/alpha912/codebase-md/actions/workflows/ci.yml/badge.svg"></a>
+  <a href="https://marketplace.visualstudio.com/items?itemName=alpha912.codebase-md"><img alt="Visual Studio Marketplace" src="https://img.shields.io/visual-studio-marketplace/v/alpha912.codebase-md?color=2F80ED&label=marketplace"></a>
+  <a href="LICENSE.md"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-2F80ED"></a>
+  <a href="https://reuse.software/"><img alt="REUSE compliant" src="https://img.shields.io/badge/REUSE-compliant-2F80ED"></a>
+</p>
 
-CodebaseMD runs locally. It does not upload your source code or call an AI provider.
+> **Status:** 3.0.0 is the current release. `main` has unreleased changes: the
+> next release requires VS Code 1.146 or later (3.0.0 runs on 1.70 and later).
+> See the [changelog](CHANGELOG.md) and the [limitations](#limitations).
 
-[Install from GitHub Releases](https://github.com/alpha912/codebase-md/releases/latest) · [Documentation](docs/README.md) · [Changelog](docs/changelog.md) · [Report an issue](https://github.com/alpha912/codebase-md/issues)
+## Contents
 
-## Start in a minute
+- [What CodebaseMD is](#what-codebasemd-is)
+- [A short example](#a-short-example)
+- [Install](#install)
+- [Commands](#commands)
+- [Settings](#settings)
+- [Choosing what is shared](#choosing-what-is-shared)
+- [How it works](#how-it-works)
+- [Limitations](#limitations)
+- [Repository layout](#repository-layout)
+- [Development](#development)
+- [Documentation](#documentation)
+- [Contributing](#contributing)
+- [License](#license)
 
-1. Download the `.vsix` from [GitHub Releases](https://github.com/alpha912/codebase-md/releases/latest).
-2. In VS Code, open **Extensions → … → Install from VSIX…**, then select the file.
-3. Open a local workspace and run **CodebaseMD: Export Wizard** from the Command Palette.
-4. Choose your scope, content mode, output format, and destination.
+## What CodebaseMD is
 
-The Marketplace has its own publication schedule; use the GitHub VSIX for this release. VS Code 1.146 or later is required. Git is needed only for Git exports.
+Giving an assistant or a reviewer the right code usually means copying files
+one at a time. CodebaseMD does it in one step: pick a scope, and it writes a
+single document with a folder tree, per-language statistics, a token estimate
+and the contents of each file.
 
-## What's new in version 3.0.0
+- **Scopes:** the workspace, selected files and folders, changes against
+  `HEAD`, or the current file (including unsaved edits).
+- **Formats:** Markdown with a linked contents list, escaped XML, or plain
+  text.
+- **Destinations:** a file, the clipboard, or a new editor tab.
+- **Content modes:** full source, a compact Micro summary, or a declaration
+  skeleton, for fitting more files into a context budget.
+- **Guard rails:** recognizable secrets are redacted by default, ignore rules
+  are respected, symbolic links are not followed, and a warning appears before
+  an export exceeds your token budget.
 
-| Capability | What you can do |
-| --- | --- |
-| Export Wizard | Choose workspace, selected files/folders, Git changes, or current file |
-| Output formats | Generate Markdown with a contents list, escaped XML, or plain text |
-| Destinations | Save a file, copy to clipboard, or open an editable document |
-| Content modes | Include full source, existing Micro summaries, or best-effort skeletons |
-| Context budgets | See approximate tokens per file and language; warn before exceeding a budget |
-| Git context | Export changes against HEAD, untracked files, and optional filtered diffs |
-| Secret redaction | Replace recognizable credentials before exporting; report counts |
-| File handling | Respect nested ignore rules, skip symlinks, bound file sizes, and cancel exports |
+CodebaseMD runs entirely on your machine. It does not upload source code, call
+an AI provider or collect telemetry.
 
-The four existing commands still save Markdown. Micro retains its established summary format. Read the [v3 release notes](releases/RELEASE-NOTES-3.0.0.md) for migration details.
+## A short example
+
+<table>
+<tr>
+<td width="42%" valign="top">
+
+A workspace with three files:
+
+```text
+├── .env
+├── README.md
+└── src/
+    └── greet.ts
+```
+
+`.env` holds a token:
+
+```dotenv
+API_TOKEN="sk_live_abc…"
+```
+
+Run **CodebaseMD: Export Wizard**, choose
+*Workspace → Full → Markdown → Clipboard*,
+and paste.
+
+The token is replaced before the export
+leaves the editor, and the summary line
+reports one redaction.
+
+</td>
+<td width="58%" valign="top">
+
+````markdown
+# Project Export
+
+3 files | 28 estimated content tokens (characters / 4) | 1 redactions | full mode
+
+## Languages
+
+| Language | Files | Estimated tokens |
+| --- | ---: | ---: |
+| dotenv | 1 | 7 |
+| markdown | 1 | 2 |
+| typescript | 1 | 19 |
+
+## Contents
+
+- [\.env](#file-1) — dotenv, ~7 tokens
+- [README\.md](#file-2) — markdown, ~2 tokens
+- [src/greet\.ts](#file-3) — typescript, ~19 tokens
+
+### \.env
+
+```dotenv
+API_TOKEN="***REDACTED***"
+```
+
+### src/greet\.ts
+
+```typescript
+export function greet(name: string): string {
+  return `Hello, ${name}`;
+}
+```
+````
+
+</td>
+</tr>
+</table>
+
+The output above is abridged: a real export also lists the largest files and
+the folder tree. XML and plain-text exports carry the same information.
+
+## Install
+
+1. Download the `.vsix` from
+   [GitHub Releases](https://github.com/alpha912/codebase-md/releases/latest).
+   A SHA-256 checksum is published next to it.
+2. In VS Code, open **Extensions → … → Install from VSIX…** and select the
+   file.
+3. Open a local folder and run **CodebaseMD: Export Wizard** from the Command
+   Palette.
+
+The extension is also on the
+[Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=alpha912.codebase-md).
+Marketplace publication is a separate step and can lag behind GitHub Releases.
+Git is needed only for Git exports. See [installation](docs/installation.md)
+for details.
 
 ## Commands
 
-| Command Palette title | Behavior |
+| Command Palette title | What it does |
 | --- | --- |
-| **CodebaseMD: Export Wizard** | Four-step export flow |
-| **CodebaseMD: Export Git Changes** | Changed files using configured output options |
-| **CodebaseMD: Copy Current File** | Copy the active saved file, including unsaved edits |
-| **Export Codebase as Markdown** | Full workspace to a Markdown file |
-| **Export Selected as Markdown** | Selected files/folders to Markdown |
-| **Export Micro Codebase** | Workspace Micro summary to Markdown |
-| **Export Selected as Micro Codebase** | Selected Micro summary to Markdown |
+| **CodebaseMD: Export Wizard** | Four steps: scope, content mode, format, destination |
+| **CodebaseMD: Export Git Changes** | Files changed against `HEAD` plus untracked files, using your settings |
+| **CodebaseMD: Copy Current File** | Copies the active saved file, including unsaved edits |
+| **Export Codebase as Markdown** | Whole workspace folder to a Markdown file |
+| **Export Selected as Markdown** | Selected files and folders to a Markdown file |
+| **Export Micro Codebase** | Whole workspace folder as a Micro summary |
+| **Export Selected as Micro Codebase** | Selected files and folders as a Micro summary |
 
-The two selected-export commands also appear in the Explorer context menu. From the Command Palette, they open a file/folder picker. Multi-root workspaces prompt for one folder per export.
+The two selected-export commands also appear in the Explorer context menu.
+Multi-root workspaces prompt for one folder per export. [Usage](docs/usage.md)
+walks through each command.
 
 ## Settings
 
-Search for **CodebaseMD** in Settings. All keys below use the `codebaseMD.` prefix and can be configured per workspace folder.
+Search for **CodebaseMD** in Settings. Every key has the `codebaseMD.` prefix
+and can be set per workspace folder.
 
 | Setting | Default | Meaning |
 | --- | --- | --- |
-| `format` | `markdown` | `markdown`, `xml`, or `text` |
-| `contentMode` | `full` | `full`, `micro`, or `skeleton` |
-| `target` | `file` | `file`, `clipboard`, or `editor` |
-| `tokenBudget` | `32000` | Warning threshold; `0` disables warnings |
-| `redactSecrets` | `true` | Heuristic redaction of recognizable secrets |
-| `maxFileSizeKB` | `1024` | Maximum content/diff size per file in KiB |
-| `exclude` | `[]` | Additional gitignore-style exclusions |
-| `respectGitignore` | `true` | Apply root and nested `.gitignore` rules |
+| `format` | `markdown` | `markdown`, `xml` or `text` |
+| `contentMode` | `full` | `full`, `micro` or `skeleton` |
+| `target` | `file` | `file`, `clipboard` or `editor` |
+| `tokenBudget` | `32000` | Warn above this estimate; `0` disables the warning |
+| `redactSecrets` | `true` | Replace recognizable secrets before exporting |
+| `maxFileSizeKB` | `1024` | Largest file content or diff to include, in KiB |
+| `exclude` | `[]` | Extra gitignore-style patterns to leave out entirely |
+| `respectGitignore` | `true` | Apply root and nested `.gitignore` files |
 | `includeDiff` | `false` | Add tracked-file diffs to Git exports |
-| `lineNumbers` | `false` | Number lines in the exported representation |
-| `customHeader` | empty | Add your task or instructions |
+| `lineNumbers` | `false` | Number the lines of the exported representation |
+| `customHeader` | empty | Text added to the top of each export, such as your task |
 
-The wizard starts from these defaults. Original commands retain their full/Micro and Markdown-to-file behavior; Copy Current File always uses the clipboard.
+The wizard starts from these values. The four original commands always save
+Markdown in their full or Micro mode, and Copy Current File always uses the
+clipboard. [Configuration](docs/configuration.md) has examples.
 
-## Choose what is shared
+## Choosing what is shared
 
-- **`.gitignore` and `exclude`** remove matching files entirely, including their paths.
-- **`.codebaseignore`** in the workspace root hides matching contents but retains paths in the tree.
-- **Default exclusions** skip dependency/build directories, lockfiles, archives, and default `codebase-export.*` output names.
-- **Size and binary checks** replace unavailable content with an omission notice. Symbolic links and junctions are skipped.
+| Rule | Effect |
+| --- | --- |
+| `.gitignore` (root and nested) and `codebaseMD.exclude` | Matching files are left out entirely, including their paths |
+| `.codebaseignore` in the workspace root | Matching files keep their path in the tree; their content is omitted |
+| Built-in exclusions | Dependency and build directories, lockfiles, archives and `codebase-export.*` are skipped |
+| Size and binary checks | Oversized and binary files get an omission notice instead of content |
+| Symbolic links and junctions | Never followed, even when selected explicitly |
 
-These rules also apply to explicit selections. See [configuration examples](docs/configuration.md).
+The same rules apply to explicit selections and to Git exports.
 
-## Accuracy and scope
+## How it works
 
-**Token estimates** use `ceil(characters / 4)`, not a model tokenizer. File statistics cover transformed content. The budget warning covers the entire formatted output, including headers and diffs. Actual model usage can differ substantially.
+```text
+VS Code command ──► config.ts ──► exporter.ts ──► formatters.ts ──► file / clipboard / editor
+   (extension.ts)   validated      │
+                    settings       ├─ fsUtils.ts   ignore rules, containment, directory walk
+                                   ├─ git.ts       changed files and filtered diffs
+                                   ├─ secrets.ts   redaction, before any transformation
+                                   ├─ analyzer.ts  Micro summaries, language mapping
+                                   ├─ skeleton.ts  declaration outlines
+                                   └─ tokens.ts    characters / 4 estimate
+```
 
-**Micro and skeleton modes** use heuristics, not complete language parsers. Skeletons may miss multiline declarations or misidentify signatures; files without recognized declarations retain full content. Line numbers in condensed modes refer to the exported representation.
+Only `extension.ts` and `config.ts` touch VS Code APIs. The export pipeline is
+plain Node code, which is why the unit tests can run it against temporary
+directories and Git repositories without an editor. Nothing is written until
+the export has been prepared and the budget check has passed.
+[Architecture](docs/architecture.md) describes each stage and the safety
+properties it keeps.
 
-**Secret redaction** recognizes common provider tokens, JWTs, private keys, and password/token assignments. It can miss secrets or redact ordinary values. Review exports before sharing them. Paths remain visible unless excluded; redaction reports contain counts, not matched values.
+## Limitations
 
-**Git exports** use disk/index changes against HEAD to select files. Buffer-only edits do not add files to this scope, although selected open files use editor content. Diffs reflect disk/index state, omit deleted/excluded/unavailable contents, and do not include untracked-file patches. Deleted paths remain listed. Repositories without commits are supported. Git exports require workspace trust.
+- **Token estimates** are `ceil(characters / 4)`, not a model tokenizer. Real
+  usage can differ substantially.
+- **Secret redaction** is heuristic. It recognizes common provider tokens,
+  JWTs, private keys and password or token assignments; it can miss secrets
+  and can redact ordinary values. Review exports before sharing them. Paths
+  stay visible unless excluded.
+- **Micro and skeleton modes** use regular expressions, not language parsers.
+  They can miss multiline declarations or misread signatures. Use full mode
+  when exact source matters.
+- **Git exports** reflect the disk and index against `HEAD`. Unsaved buffers do
+  not select a file, diffs do not include untracked files, and Git exports
+  require a trusted workspace.
+- **Workspaces** must be local folders, one folder per export. Virtual
+  filesystems and untitled files are not supported.
+- **Platforms:** CI covers Linux and Windows. macOS is expected to work but is
+  not tested in CI.
 
-**Local workspaces** are supported, one folder per export. Virtual filesystem workspaces and untitled files are not supported.
+## Repository layout
+
+| Path | Contents |
+| --- | --- |
+| `src/` | Extension source; one module per pipeline stage |
+| `src/test/unit/` | Unit tests for the pipeline and helpers (no VS Code needed) |
+| `src/test/suite/` | Tests that run inside a VS Code extension host |
+| `docs/` | User and developer documentation |
+| `releases/` | Release notes per version, and VSIX files of releases before 3.0 |
+| `scripts/` | Release publishing script used by CI |
+| `assets/` | Icon, logo and banner |
+| `.github/` | CI workflow, Dependabot, issue and pull request templates |
+| `CodebaseMD-Web/` | Placeholder for a separate web prototype; not part of the extension |
 
 ## Development
 
-Use [Bun](https://bun.sh) 1.4+, Node.js 22.12+ (Node 24 recommended) and Git:
+You need [Bun](https://bun.sh) 1.4+, Node.js 22.12+ (24 recommended) and Git.
 
 ```sh
 bun install --frozen-lockfile
-bun run lint
-bun run test
-bun run test:integration
-bun run package
+bun run check              # Biome lint and format check, then unit tests
+bun run test:integration   # extension-host tests (Linux: prefix with xvfb-run -a)
+bun run package            # build the VSIX
 ```
 
-Unit tests import production modules and create temporary Git repositories. Integration tests launch a VS Code host and verify commands, clipboard output, and unsaved content. Linux integration tests require a display (`xvfb-run -a bun run test:integration` in CI). The CI workflow tests Windows and Linux and retains the built VSIX as an artifact.
+CI runs the same steps on Linux and Windows, audits dependencies, checks REUSE
+licensing metadata and keeps the built VSIX as an artifact. See
+[CONTRIBUTING.md](CONTRIBUTING.md) for the workflow and
+[AGENTS.md](AGENTS.md) for a short guide aimed at coding agents.
 
-See [contributing](CONTRIBUTING.md), the [developer module reference](docs/api-reference.md), and the [research and implementation plan](docs/v3-plan.md). The separate [web prototype](CodebaseMD-Web/README.md) is not part of this extension release.
+## Documentation
+
+| Document | For |
+| --- | --- |
+| [Installation](docs/installation.md) | Installing and verifying the extension |
+| [Usage](docs/usage.md) | Each command, step by step |
+| [Configuration](docs/configuration.md) | Settings, ignore files and limits |
+| [Micro export format](docs/micro-export-format.md) | The compact summary notation |
+| [Troubleshooting](docs/troubleshooting.md) | Common problems and fixes |
+| [Architecture](docs/architecture.md) | Pipeline stages and safety properties |
+| [Developer reference](docs/api-reference.md) | Modules, command IDs and the `exportCodebase` contract |
+| [Changelog](CHANGELOG.md) and [release notes](releases/) | What changed in each version |
+
+## Contributing
+
+Bug reports, fixes and documentation improvements are welcome. Start with
+[CONTRIBUTING.md](CONTRIBUTING.md); use the
+[issue templates](https://github.com/alpha912/codebase-md/issues/new/choose) for
+bugs and ideas, and [SECURITY.md](SECURITY.md) for vulnerabilities. Everyone
+taking part is expected to follow the [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## License
 
-[MIT](LICENSE.md) · Created by [Alphin Tom](https://github.com/alpha912).
+[MIT](LICENSE.md) © Alphin Tom. The repository follows the
+[REUSE](https://reuse.software/) specification: source files carry SPDX
+headers and [`REUSE.toml`](REUSE.toml) covers the rest. The Code of Conduct is
+adapted from the Contributor Covenant under CC BY 4.0.

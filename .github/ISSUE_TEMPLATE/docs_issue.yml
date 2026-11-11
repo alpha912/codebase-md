@@ -1,0 +1,27 @@
+# SPDX-FileCopyrightText: 2024-2026 Alphin Tom
+#
+# SPDX-License-Identifier: MIT
+
+name: Documentation issue
+description: Something in the README or docs is wrong, unclear or missing
+title: "[Docs]: "
+labels: ["documentation", "triage"]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page
+      description: File path or link to the page.
+      placeholder: docs/configuration.md
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is wrong or missing
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested wording

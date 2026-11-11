@@ -1,0 +1,23 @@
+# SPDX-FileCopyrightText: 2024-2026 Alphin Tom
+#
+# SPDX-License-Identifier: MIT
+#
+# Licensing for files that cannot carry an SPDX header (JSON, Markdown, images,
+# lockfiles, packaged VSIX files). Source files carry their own headers.
+# See https://reuse.software/spec/.
+
+version = 1
+
+# Default: everything not otherwise annotated is MIT, held by Alphin Tom.
+[[annotations]]
+path = "**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2024-2026 Alphin Tom"
+SPDX-License-Identifier = "MIT"
+
+# Contributor Covenant text, adapted. Upstream attribution is kept in the file.
+[[annotations]]
+path = "CODE_OF_CONDUCT.md"
+precedence = "override"
+SPDX-FileCopyrightText = ["Contributor Covenant authors", "2024-2026 Alphin Tom"]
+SPDX-License-Identifier = "CC-BY-4.0"
