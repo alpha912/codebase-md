@@ -8,6 +8,8 @@ Longer notes for each release are in [`releases/`](releases/).
 
 ## [Unreleased]
 
+## [4.0.0] - 2026-11-11
+
 ### Changed
 - **BREAKING:** the minimum supported VS Code is now 1.146 (previously 1.70). Stay on 3.0.0 if you use an older VS Code or a fork based on one.
 - The VSIX is smaller: it ships a 256 px icon and no longer bundles the documentation, release notes, banner and full-size logos.
@@ -22,6 +24,8 @@ Longer notes for each release are in [`releases/`](releases/).
 - Documentation: rewritten README, an architecture guide, a security policy, support and agent guides, and issue and pull request templates.
 - REUSE licensing metadata: SPDX headers on source files, `REUSE.toml` and `LICENSES/`, checked in CI.
 - More unit tests for language mapping, the Micro representation, path containment and formatting helpers.
+
+See [release notes](releases/RELEASE-NOTES-4.0.0.md) for upgrade guidance.
 
 ## [3.0.0] - 2026-09-18
 

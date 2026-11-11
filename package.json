@@ -2,7 +2,7 @@
   "name": "codebase-md",
   "displayName": "CodebaseMD",
   "description": "Export codebases as Markdown, XML or text with token estimates, secret redaction, Git context and compact views.",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "publisher": "alpha912",
   "engines": {
     "vscode": "^1.146.0",

@@ -26,8 +26,8 @@ Security fixes go into the next release; only the latest release is supported.
 
 | Version | Supported |
 | --- | --- |
-| Latest 3.x release | Yes |
-| 2.x and earlier | No; upgrade to the latest release |
+| Latest 4.x release | Yes |
+| 3.x and earlier | No; upgrade to the latest release |
 
 ## Scope
 

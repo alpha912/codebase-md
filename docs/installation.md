@@ -5,8 +5,8 @@ Git exports.
 
 | Release | Requires |
 | --- | --- |
-| 3.0.0 (current) | VS Code 1.70 or later |
-| Next release (unreleased, on `main`) | VS Code 1.146 or later |
+| 4.0.0 (current) | VS Code 1.146 or later |
+| [3.0.0](https://github.com/alpha912/codebase-md/releases/tag/v3.0.0) | VS Code 1.70 or later |
 
 ## From GitHub Releases
 
