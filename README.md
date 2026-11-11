@@ -23,9 +23,11 @@
   <a href="https://reuse.software/"><img alt="REUSE compliant" src="https://img.shields.io/badge/REUSE-compliant-2F80ED"></a>
 </p>
 
-> **Status:** 3.0.0 is the current release. `main` has unreleased changes: the
-> next release requires VS Code 1.146 or later (3.0.0 runs on 1.70 and later).
-> See the [changelog](CHANGELOG.md) and the [limitations](#limitations).
+> **Status:** 4.0.0 is the current release and requires VS Code 1.146 or
+> later. On an older VS Code, or a fork based on one, use
+> [3.0.0](https://github.com/alpha912/codebase-md/releases/tag/v3.0.0), which
+> runs on 1.70 and later. See the [changelog](CHANGELOG.md) and the
+> [limitations](#limitations).
 
 ## Contents
 

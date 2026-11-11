@@ -35,7 +35,7 @@ body:
     attributes:
       label: Extension version
       description: Shown on the extension's page in VS Code.
-      placeholder: "3.0.0"
+      placeholder: "4.0.0"
     validations:
       required: true
   - type: input
